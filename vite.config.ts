@@ -51,7 +51,6 @@ export default defineConfig({
           // Heavy libraries
           'charts': ['recharts'],
           'pdf': ['html2canvas', 'jspdf'],
-          'firebase': ['firebase'],
           'supabase': ['@supabase/supabase-js'],
           
           // Form libraries
