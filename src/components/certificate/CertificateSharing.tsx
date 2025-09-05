@@ -100,7 +100,7 @@ ${certificateData.recipientName}`
           if (navigator.share) {
             await navigator.share({
               title: `${certificateData.courseName} Certificate`,
-              text: text,
+              text: typeof text === 'string' ? text : text.body,
               url: shareUrl
             });
             setIsSharing(null);

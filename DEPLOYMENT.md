@@ -10,6 +10,7 @@
 ## Step 1: Prepare Your Repository
 
 1. **Push to GitHub**:
+
    ```bash
    git add .
    git commit -m "Prepare for Vercel deployment"
@@ -38,11 +39,13 @@
 ### Option B: Deploy via Vercel CLI
 
 1. **Install Vercel CLI**:
+
    ```bash
    npm i -g vercel
    ```
 
 2. **Login to Vercel**:
+
    ```bash
    vercel login
    ```
@@ -57,6 +60,7 @@
 In your Vercel dashboard, go to **Settings > Environment Variables** and add:
 
 ### Required Variables:
+
 ```
 VITE_SUPABASE_URL=your_supabase_url
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
@@ -72,11 +76,13 @@ FRONTEND_URL=https://your-app-name.vercel.app
 ### How to get these values:
 
 1. **Supabase**:
+
    - Go to your Supabase project dashboard
    - Settings > API
    - Copy URL and keys
 
 2. **Xendit**:
+
    - Go to Xendit dashboard
    - API Keys section
    - Copy secret key and webhook token
@@ -89,6 +95,7 @@ FRONTEND_URL=https://your-app-name.vercel.app
 ## Step 4: Update Supabase Database
 
 1. **Run the SQL script** in your Supabase SQL Editor:
+
    - Copy contents of `add_payments_tables.sql`
    - Paste and run in Supabase SQL Editor
 
@@ -99,10 +106,12 @@ FRONTEND_URL=https://your-app-name.vercel.app
 ## Step 5: Configure Webhooks
 
 ### Xendit Webhook:
+
 - **URL**: `https://your-app-name.vercel.app/xendit-webhook`
 - **Events**: Select payment events
 
 ### Update CORS in Supabase:
+
 - Go to Supabase > Settings > API
 - Add your Vercel domain to allowed origins
 
@@ -127,14 +136,17 @@ FRONTEND_URL=https://your-app-name.vercel.app
 ### Common Issues:
 
 1. **Build Fails**:
+
    - Check Node.js version (should be 18+)
    - Verify all dependencies are in `package.json`
 
 2. **API Routes Not Working**:
+
    - Check `vercel.json` configuration
    - Verify environment variables are set
 
 3. **Database Connection Issues**:
+
    - Verify Supabase URL and keys
    - Check RLS policies
 
@@ -172,6 +184,7 @@ vercel --prod
 ## Support
 
 If you encounter issues:
+
 1. Check Vercel function logs
 2. Verify environment variables
 3. Test API endpoints individually
