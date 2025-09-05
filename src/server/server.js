@@ -68,21 +68,27 @@ app.post("/webhook", async (req, res) => {
     let userId = event?.user_id || event?.metadata?.user_id;
     let credits = Number(event?.metadata?.credits || 0);
     
-    // If no credits in metadata, try to extract from external_id or calculate from amount
-    if (!credits && event?.external_id) {
+    // Extract userId from external_id pattern: topup-{userId}-{timestamp}
+    if (event?.external_id) {
       const m = String(event.external_id).match(/^topup-(.+)-\d+$/);
-      if (m) userId = m[1];
+      if (m) {
+        userId = m[1];
+        console.log('Extracted userId from external_id:', userId);
+      }
     }
     
-    // If still no credits, calculate from amount (assuming 1 credit = 6000 IDR)
-    if (!credits && event?.amount) {
-      credits = Math.floor(Number(event.amount) / 6000); // 1 credit = 6000 IDR
-    }
-    
-    // If still no userId, try to extract from external_id pattern
-    if (!userId && event?.external_id) {
-      const m = String(event.external_id).match(/^topup-(.+)-\d+$/);
-      if (m) userId = m[1];
+    // Calculate credits from description or amount
+    if (!credits) {
+      // Try to extract from description: "Pro Pack • 100 credits"
+      const descMatch = event?.description?.match(/(\d+)\s+credits/);
+      if (descMatch) {
+        credits = Number(descMatch[1]);
+        console.log('Extracted credits from description:', credits);
+      } else if (event?.amount) {
+        // Fallback: calculate from amount (assuming 1 credit = 6 PHP for Pro Pack)
+        credits = Math.floor(Number(event.amount) / 6);
+        console.log('Calculated credits from amount:', credits);
+      }
     }
     
     console.log('Webhook data:', { userId, credits, external_id: event?.external_id, amount: event?.amount });
