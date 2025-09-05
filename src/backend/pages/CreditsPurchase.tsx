@@ -169,7 +169,7 @@ const CreditsPurchase: React.FC<CreditsPurchaseProps> = ({ userId }) => {
         <button
           onClick={async () => {
             try {
-              const res = await fetch(`${API_BASE_URL}/api/test-add-credits`, {
+              const res = await fetch(`${API_BASE_URL}/test-credits`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ userId, credits: 100 })
