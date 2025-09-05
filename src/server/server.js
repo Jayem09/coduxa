@@ -9,6 +9,9 @@ import rateLimit from "express-rate-limit";
 
 const app = express();
 
+// Trust proxy for Vercel deployment
+app.set('trust proxy', 1);
+
 // Middleware
 app.use(
   cors({
@@ -24,9 +27,26 @@ app.use(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Basic rate limiters
-const adminLimiter = rateLimit({ windowMs: 60 * 1000, max: 60 }); // 60 req/min
-const webhookLimiter = rateLimit({ windowMs: 60 * 1000, max: 120 }); // 120 req/min
+// Basic rate limiters with proper proxy configuration
+const adminLimiter = rateLimit({ 
+  windowMs: 60 * 1000, 
+  max: 60,
+  standardHeaders: true,
+  legacyHeaders: false,
+  keyGenerator: (req) => {
+    return req.ip || req.connection.remoteAddress || 'unknown';
+  }
+});
+
+const webhookLimiter = rateLimit({ 
+  windowMs: 60 * 1000, 
+  max: 120,
+  standardHeaders: true,
+  legacyHeaders: false,
+  keyGenerator: (req) => {
+    return req.ip || req.connection.remoteAddress || 'unknown';
+  }
+});
 
 // Mount payment routes
 app.use("/api", webhookLimiter, paymentRoutes);

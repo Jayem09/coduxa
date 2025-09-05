@@ -210,4 +210,65 @@ router.post("/webhook", async (req, res) => {
   }
 });
 
+// Test endpoint to manually add credits (for debugging)
+router.post("/test-add-credits", async (req, res) => {
+  try {
+    const { userId, credits } = req.body;
+    
+    if (!userId || !credits) {
+      return res.status(400).json({ error: "Missing userId or credits" });
+    }
+    
+    console.log(`Manually adding ${credits} credits to user ${userId}`);
+    
+    // Try RPC first
+    const rpc1 = await supabase.rpc("increment_credits", {
+      p_user_id: userId,
+      p_credit_amount: credits,
+    });
+    
+    if (rpc1.error) {
+      const rpc2 = await supabase.rpc("increment_credits", {
+        user_id: userId,
+        credit_amount: credits,
+      });
+      
+      if (rpc2.error) {
+        // Fallback to upsert
+        const current = await supabase
+          .from("user_credits")
+          .select("credits")
+          .eq("user_id", userId)
+          .single();
+        
+        const newCredits = (current.data?.credits || 0) + credits;
+        const upsert = await supabase
+          .from("user_credits")
+          .upsert({ user_id: userId, credits: newCredits });
+        
+        if (upsert.error) {
+          return res.status(500).json({ error: "Failed to add credits", details: upsert.error });
+        }
+      }
+    }
+    
+    // Get updated credits
+    const { data: updatedCredits } = await supabase
+      .from("user_credits")
+      .select("credits")
+      .eq("user_id", userId)
+      .single();
+    
+    res.json({ 
+      success: true, 
+      message: `Added ${credits} credits successfully`,
+      currentCredits: updatedCredits?.credits || 0
+    });
+    
+  } catch (err) {
+    console.error("Test add credits error:", err);
+    res.status(500).json({ error: "Internal server error", details: err.message });
+  }
+});
+
 export default router;
