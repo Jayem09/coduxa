@@ -86,7 +86,7 @@ export default function AdminSidebar() {
     if (!userId) return alert("Not logged in");
 
     try {
-      const res = await fetch("http://localhost:4000/create-invoice", {
+      const res = await fetch(`${(import.meta as any).env?.VITE_SERVER_URL || 'https://coduxa.vercel.app'}/api/create-invoice`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

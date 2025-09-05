@@ -81,8 +81,8 @@ app.post("/create-invoice", async (req, res) => {
       amount: Number(amount),
       currency: "PHP",
       description: `Coduxa Top-up • ${packTitle} • ${credits} credits`,
-      success_redirect_url: "http://localhost:5173/dashboard/credits?status=success",
-      failure_redirect_url: "http://localhost:5173/dashboard/credits?status=failed",
+      success_redirect_url: `${process.env.FRONTEND_URL || 'https://coduxa.vercel.app'}/dashboard/credits?status=success`,
+      failure_redirect_url: `${process.env.FRONTEND_URL || 'https://coduxa.vercel.app'}/dashboard/credits?status=failed`,
       metadata: {
         user_id: userId,
         credits: Number(credits),

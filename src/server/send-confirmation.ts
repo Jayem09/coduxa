@@ -23,7 +23,7 @@ app.post("/send-confirmation", async (req, res) => {
       html: `
         <h1>Welcome!</h1>
         <p>Click the link below to confirm your email:</p>
-        <a href="https://yourapp.com/confirm?email=${encodeURIComponent(email)}">
+        <a href="${process.env.FRONTEND_URL || 'https://coduxa.vercel.app'}/confirm?email=${encodeURIComponent(email)}">
           Confirm my email
         </a>
       `,
