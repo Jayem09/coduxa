@@ -91,7 +91,8 @@ const CreditsPurchase: React.FC<CreditsPurchaseProps> = ({ userId }) => {
       }
     } catch (err) {
       console.error("Purchase error:", err);
-      alert(`Failed to create payment: ${err.message}. Please try again.`);
+      const errorMessage = err instanceof Error ? err.message : 'Unknown error occurred';
+      alert(`Failed to create payment: ${errorMessage}. Please try again.`);
     } finally {
       setLoading(false);
       setSelectedPackage(null);
