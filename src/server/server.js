@@ -98,39 +98,43 @@ app.post("/webhook", async (req, res) => {
       return res.sendStatus(400);
     }
 
-    // Try RPC with both arg name sets
-    let rpcError = null;
-    const rpc1 = await supabase.rpc("increment_credits", {
+    // Try RPC first
+    console.log(`Attempting to add ${credits} credits to user ${userId}`);
+    const rpcResult = await supabase.rpc("increment_credits", {
       p_user_id: userId,
       p_credit_amount: credits,
     });
-    if (rpc1.error) {
-      const rpc2 = await supabase.rpc("increment_credits", {
-        user_id: userId,
-        credit_amount: credits,
-      });
-      if (rpc2.error) rpcError = rpc2.error;
-    }
-
-    if (rpcError) {
-      // Fallback upsert
+    
+    if (rpcResult.error) {
+      console.log('RPC failed, using fallback method:', rpcResult.error);
+      
+      // Fallback: direct upsert
       const current = await supabase
         .from("user_credits")
         .select("credits")
         .eq("user_id", userId)
         .single();
+      
       if (current.error && current.error.code !== "PGRST116") {
         console.error("Failed to read current credits:", current.error);
         return res.sendStatus(500);
       }
-      const newCredits = (current.data?.credits || 0) + credits;
+      
+      const currentCredits = current.data?.credits || 0;
+      const newCredits = currentCredits + credits;
+      
       const upsert = await supabase
         .from("user_credits")
         .upsert({ user_id: userId, credits: newCredits });
+      
       if (upsert.error) {
         console.error("Upsert credits failed:", upsert.error);
         return res.sendStatus(500);
       }
+      
+      console.log(`Fallback: Added ${credits} credits. New total: ${newCredits}`);
+    } else {
+      console.log('RPC successful:', rpcResult.data);
     }
 
     // Persist payment
