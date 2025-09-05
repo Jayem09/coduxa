@@ -1,0 +1,52 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/server/server.js",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": ["src/server/**"]
+      }
+    },
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/src/server/server.js"
+    },
+    {
+      "src": "/admin/(.*)",
+      "dest": "/src/server/server.js"
+    },
+    {
+      "src": "/credits/(.*)",
+      "dest": "/src/server/server.js"
+    },
+    {
+      "src": "/webhook/(.*)",
+      "dest": "/src/server/server.js"
+    },
+    {
+      "src": "/xendit-webhook",
+      "dest": "/src/server/server.js"
+    },
+    {
+      "src": "/health",
+      "dest": "/src/server/server.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
+}

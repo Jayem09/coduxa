@@ -61,19 +61,19 @@ export function SignUpForm() {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
         <Card className="w-full max-w-md text-center">
-          <CardHeader>
-            <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-primary/10 mb-4">
-              <Mail className="h-6 w-6 text-primary" />
+          <CardHeader className="pb-4">
+            <div className="mx-auto flex items-center justify-center h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-primary/10 mb-3 sm:mb-4">
+              <Mail className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
-            <CardTitle className="text-xl">Check your email</CardTitle>
+            <CardTitle className="text-lg sm:text-xl">Check your email</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <p className="text-sm text-muted-foreground">
-              We’ve sent a confirmation link to{" "}
+          <CardContent className="space-y-4 pt-0">
+            <p className="text-xs sm:text-sm text-muted-foreground">
+              We've sent a confirmation link to{" "}
               <span className="font-medium">{email}</span>. Please confirm your email before logging in.
             </p>
             <Link to="/login" className="inline-block w-full">
-              <Button className="w-full">Return to Login</Button>
+              <Button className="w-full h-10 sm:h-11">Return to Login</Button>
             </Link>
           </CardContent>
         </Card>
@@ -84,44 +84,46 @@ export function SignUpForm() {
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-primary/10 mb-4">
-            <UserPlus className="h-6 w-6 text-primary" />
+        <CardHeader className="text-center pb-4">
+          <div className="mx-auto flex items-center justify-center h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-primary/10 mb-3 sm:mb-4">
+            <UserPlus className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
           </div>
-          <CardTitle className="text-xl">Create an Account</CardTitle>
-          <p className="text-sm text-muted-foreground">
+          <CardTitle className="text-lg sm:text-xl">Create an Account</CardTitle>
+          <p className="text-xs sm:text-sm text-muted-foreground">
             Fill in your details to get started
           </p>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-0">
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* first + last name */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
               <div className="space-y-2">
-                <Label htmlFor="firstName">First Name</Label>
+                <Label htmlFor="firstName" className="text-sm">First Name</Label>
                 <Input
                   id="firstName"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   placeholder="John"
                   required
+                  className="h-10 sm:h-11"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="lastName">Last Name</Label>
+                <Label htmlFor="lastName" className="text-sm">Last Name</Label>
                 <Input
                   id="lastName"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                   placeholder="Doe"
                   required
+                  className="h-10 sm:h-11"
                 />
               </div>
             </div>
 
             {/* email */}
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email" className="text-sm">Email</Label>
               <Input
                 id="email"
                 type="email"
@@ -129,12 +131,13 @@ export function SignUpForm() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="johndoe@example.com"
                 required
+                className="h-10 sm:h-11"
               />
             </div>
 
             {/* password */}
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password" className="text-sm">Password</Label>
               <div className="relative">
                 <Input
                   id="password"
@@ -143,7 +146,7 @@ export function SignUpForm() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Create a password"
                   required
-                  className="pr-10"
+                  className="pr-10 h-10 sm:h-11"
                 />
                 <button
                   type="button"
@@ -162,7 +165,7 @@ export function SignUpForm() {
                 checked={termsAccepted}
                 onCheckedChange={(checked) => setTermsAccepted(!!checked)}
               />
-              <Label htmlFor="terms" className="text-sm text-muted-foreground">
+              <Label htmlFor="terms" className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
                 I agree to the{" "}
                 <a href="/terms" className="text-primary hover:underline">
                   Terms of Service
@@ -175,14 +178,14 @@ export function SignUpForm() {
             </div>
 
             {errorMessage && (
-              <p className="text-sm text-red-500">{errorMessage}</p>
+              <p className="text-xs sm:text-sm text-red-500">{errorMessage}</p>
             )}
 
-            <Button type="submit" className="w-full" disabled={isLoading}>
+            <Button type="submit" className="w-full h-10 sm:h-11" disabled={isLoading}>
               {isLoading ? "Creating account..." : "Create Account"}
             </Button>
 
-            <p className="text-sm text-center text-muted-foreground">
+            <p className="text-xs sm:text-sm text-center text-muted-foreground">
               Already have an account?{" "}
               <Link to="/login" className="text-primary hover:underline">
                 Sign in instead

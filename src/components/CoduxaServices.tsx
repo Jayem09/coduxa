@@ -71,46 +71,46 @@ const technologies = [
 
 export function CodeCredServices() {
   return (
-    <section className="py-20 bg-muted/30">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="py-16 sm:py-20 bg-muted/30">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 sm:mb-16">
           <Badge variant="outline" className="mb-4">
             Our Services
           </Badge>
-          <h2 className="text-4xl font-bold mb-4">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
             Everything You Need to
             <span className="block text-primary">Succeed Online</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto">
             From simple websites to complex applications, we provide comprehensive digital solutions 
             that help your business thrive in the modern world.
           </p>
         </div>
 
         {/* Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-16 sm:mb-20">
           {services.map((service, index) => {
             const Icon = service.icon;
             return (
-              <Card key={index} className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                <CardHeader>
-                  <div className={`w-12 h-12 rounded-lg ${service.color} flex items-center justify-center mb-4`}>
-                    <Icon className="h-6 w-6" />
+              <Card key={index} className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-full">
+                <CardHeader className="pb-4">
+                  <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg ${service.color} flex items-center justify-center mb-3 sm:mb-4`}>
+                    <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
                   </div>
-                  <CardTitle className="group-hover:text-primary transition-colors">
+                  <CardTitle className="group-hover:text-primary transition-colors text-lg sm:text-xl">
                     {service.title}
                   </CardTitle>
-                  <CardDescription className="text-base">
+                  <CardDescription className="text-sm sm:text-base">
                     {service.description}
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-0">
                   <div className="space-y-2">
                     {service.features.map((feature, featureIndex) => (
-                      <div key={featureIndex} className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <div className="w-1.5 h-1.5 rounded-full bg-primary/60"></div>
-                        {feature}
+                      <div key={featureIndex} className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground">
+                        <div className="w-1.5 h-1.5 rounded-full bg-primary/60 flex-shrink-0"></div>
+                        <span className="leading-relaxed">{feature}</span>
                       </div>
                     ))}
                   </div>
@@ -121,22 +121,22 @@ export function CodeCredServices() {
         </div>
 
         {/* Technologies Section */}
-        <div className="bg-card rounded-2xl p-8 border border-border">
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold mb-2">Technologies We Use</h3>
-            <p className="text-muted-foreground">
+        <div className="bg-card rounded-2xl p-6 sm:p-8 border border-border">
+          <div className="text-center mb-6 sm:mb-8">
+            <h3 className="text-xl sm:text-2xl font-bold mb-2">Technologies We Use</h3>
+            <p className="text-sm sm:text-base text-muted-foreground">
               We work with the latest and most reliable technologies in the industry
             </p>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
             {technologies.map((tech, index) => (
               <div 
                 key={index}
-                className="flex items-center gap-3 p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors"
+                className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors"
               >
-                <span className="text-xl">{tech.icon}</span>
-                <span className="font-medium">{tech.name}</span>
+                <span className="text-lg sm:text-xl">{tech.icon}</span>
+                <span className="font-medium text-xs sm:text-sm">{tech.name}</span>
               </div>
             ))}
           </div>

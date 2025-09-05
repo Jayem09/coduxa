@@ -182,8 +182,41 @@ router.get("/user-growth", async (req, res) => {
 });
 
 router.get("/revenue", async (_req, res) => {
-  // Without a payments ledger/table, we cannot compute revenue; return empty real data
-  res.json([]);
+  try {
+    const { data, error } = await supabase
+      .from("payments")
+      .select("amount, created_at")
+      .eq("status", "PAID")
+      .gte("created_at", new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString())
+      .order("created_at", { ascending: true });
+
+    if (error) throw error;
+
+    // Group payments by day for the last 7 days
+    const days = 7;
+    const buckets = Array.from({ length: days }, () => 0);
+    const labels = Array.from({ length: days }, (_, i) => {
+      const d = new Date(Date.now() - (days - i - 1) * 86400000);
+      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    });
+    
+    const start = Date.now() - (days - 1) * 86400000;
+    (data || []).forEach(payment => {
+      const t = new Date(payment.created_at).getTime();
+      if (t >= start) {
+        const idx = Math.floor((t - start) / 86400000);
+        if (idx >= 0 && idx < days) {
+          buckets[idx] += payment.amount || 0;
+        }
+      }
+    });
+
+    const revenueData = labels.map((name, i) => ({ name, value: buckets[i] }));
+    res.json(revenueData);
+  } catch (err) {
+    console.error("/admin/revenue error:", err);
+    res.status(500).json({ error: "Failed to load revenue data" });
+  }
 });
 
 router.get("/credits-distribution", async (_req, res) => {

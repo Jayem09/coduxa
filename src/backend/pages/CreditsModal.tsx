@@ -9,8 +9,8 @@ import { useLocation } from "react-router-dom";
 import { useCredits } from "../../services/CreditsContext.tsx";
 
 const creditPacks = [
-  { title: "Starter Pack",  price: "₱150", credits: 15, description: "Perfect for beginners" },
-  { title: "Popular Pack",  price: "₱300", credits: 40, popular: true, description: "Best value for serious learners" },
+  { title: "Starter Pack",  price: "₱150", credits: 25, description: "Perfect for beginners" },
+  { title: "Popular Pack",  price: "₱300", credits: 50, popular: true, description: "Best value for serious learners" },
   { title: "Pro Pack",      price: "₱600", credits: 100, description: "For certification masters" },
 ];
 

@@ -65,16 +65,16 @@ export function LoginForm() {
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-primary/10 mb-4">
-            <LogIn className="h-6 w-6 text-primary" />
+        <CardHeader className="text-center pb-4">
+          <div className="mx-auto flex items-center justify-center h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-primary/10 mb-3 sm:mb-4">
+            <LogIn className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
           </div>
-          <CardTitle className="text-xl">Sign In</CardTitle>
+          <CardTitle className="text-lg sm:text-xl">Sign In</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-0">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email" className="text-sm">Email</Label>
               <Input
                 id="email"
                 type="email"
@@ -82,17 +82,18 @@ export function LoginForm() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
                 required
+                className="h-10 sm:h-11"
               />
             </div>
 
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password" className="text-sm">Password</Label>
                 <Dialog open={isForgotPasswordOpen} onOpenChange={setIsForgotPasswordOpen}>
                   <DialogTrigger asChild>
                     <button
                       type="button"
-                      className="text-sm text-primary hover:underline"
+                      className="text-xs sm:text-sm text-primary hover:underline"
                       onClick={() => setForgotPasswordEmail(email)}
                     >
                       Forgot password?
@@ -168,17 +169,18 @@ export function LoginForm() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
                 required
+                className="h-10 sm:h-11"
               />
             </div>
 
-            {error && <Alert variant="destructive">{error}</Alert>}
+            {error && <Alert variant="destructive" className="text-sm">{error}</Alert>}
 
-            <Button type="submit" className="w-full" disabled={isLoading}>
+            <Button type="submit" className="w-full h-10 sm:h-11" disabled={isLoading}>
               {isLoading ? 'Signing in...' : 'Sign In'}
             </Button>
 
-            <p className="text-sm text-center text-muted-foreground">
-              Don’t have an account?{' '}
+            <p className="text-xs sm:text-sm text-center text-muted-foreground">
+              Don't have an account?{' '}
               <Link to="/signup" className="text-primary hover:underline">
                 Create one
               </Link>

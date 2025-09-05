@@ -19,6 +19,8 @@ import {
   UserPlus,
   Zap,
   Shield,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 import { AdminService, type UserStats, type CreditsStats, type SystemHealth, type RecentActivity, type UserActivity, type ChartData } from "../../services/adminService";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from "recharts";
@@ -44,10 +46,14 @@ export default function AdminDashboard() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [settingsMessage, setSettingsMessage] = useState<string>("");
+  const [showAllActivities, setShowAllActivities] = useState(false);
+  const activitiesToShow = 5; // Show 5 activities by default
 
   const loadDashboardData = async () => {
     try {
       setLoading(true);
+      // Reset show all activities when refreshing data
+      setShowAllActivities(false);
       const [dashboardData, growthData, revenueChartData, distributionData] = await Promise.all([
         AdminService.getDashboardOverview(),
         AdminService.getUserGrowthData(),
@@ -347,26 +353,60 @@ export default function AdminDashboard() {
           <TabsContent value="activity" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle>Recent Activity</CardTitle>
+                <CardTitle className="flex items-center gap-2">
+                  Recent Activity
+                  {recentActivity.length > 0 && (
+                    <Badge variant="secondary" className="text-xs">
+                      {recentActivity.length} {recentActivity.length === 1 ? 'item' : 'items'}
+                    </Badge>
+                  )}
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   {recentActivity.length > 0 ? (
-                    recentActivity.map((activity) => {
-                      const IconComponent = getActivityIcon(activity.type);
-                      return (
-                        <div key={activity.id} className="flex items-center space-x-4 p-3 border rounded-lg">
-                          <IconComponent className="h-5 w-5 text-muted-foreground" />
-                          <div className="flex-1">
-                            <p className="text-sm font-medium">{activity.description}</p>
-                            <p className="text-xs text-muted-foreground">{formatDate(activity.timestamp)}</p>
+                    <>
+                      {recentActivity.slice(0, showAllActivities ? recentActivity.length : activitiesToShow).map((activity) => {
+                        const IconComponent = getActivityIcon(activity.type);
+                        return (
+                          <div key={activity.id} className="flex items-center space-x-4 p-3 border rounded-lg">
+                            <IconComponent className="h-5 w-5 text-muted-foreground" />
+                            <div className="flex-1">
+                              <p className="text-sm font-medium">{activity.description}</p>
+                              <p className="text-xs text-muted-foreground">{formatDate(activity.timestamp)}</p>
+                            </div>
+                            {activity.amount && (
+                              <Badge variant="outline">{formatCurrency(activity.amount)}</Badge>
+                            )}
                           </div>
-                          {activity.amount && (
-                            <Badge variant="outline">{formatCurrency(activity.amount)}</Badge>
-                          )}
+                        );
+                      })}
+                      
+                      {recentActivity.length > activitiesToShow && (
+                        <div className="flex justify-center pt-4">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => setShowAllActivities(!showAllActivities)}
+                            className="flex items-center gap-2 hover:bg-gray-50"
+                          >
+                            {showAllActivities ? (
+                              <>
+                                <ChevronUp className="h-4 w-4" />
+                                <span>Show Less</span>
+                                <span className="text-xs text-muted-foreground">({activitiesToShow} of {recentActivity.length})</span>
+                              </>
+                            ) : (
+                              <>
+                                <ChevronDown className="h-4 w-4" />
+                                <span>See More</span>
+                                <span className="text-xs text-muted-foreground">({recentActivity.length - activitiesToShow} more)</span>
+                              </>
+                            )}
+                          </Button>
                         </div>
-                      );
-                    })
+                      )}
+                    </>
                   ) : (
                     <p className="text-muted-foreground text-center py-8">No recent activity</p>
                   )}

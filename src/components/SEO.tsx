@@ -159,5 +159,39 @@ export const seoConfigs = {
     description: 'Administrative dashboard for managing users, monitoring system health, and overseeing the Coduxa certification platform.',
     keywords: 'admin dashboard, platform management, user management, system monitoring',
     url: '/dashboard/admin',
+  },
+  
+  faqs: {
+    title: 'FAQs - Frequently Asked Questions',
+    description: 'Find answers to common questions about Coduxa platform, exams, credits, account management, and technical support.',
+    keywords: 'faq, frequently asked questions, help, support, coduxa help, platform questions',
+    url: '/dashboard/faqs',
+  },
+  
+  roadmap: {
+    title: 'Developer Roadmaps - Learn Programming Skills',
+    description: 'Follow structured learning paths to master programming skills. Choose from role-based and skill-based roadmaps designed by industry experts.',
+    keywords: 'developer roadmap, programming roadmap, learn to code, coding path, software development roadmap, tech career',
+    url: '/dashboard/roadmap',
+  },
+  
+  leaderboard: {
+    title: 'Leaderboard - Top Developers & Achievements',
+    description: 'Compete with developers worldwide and climb the ranks. View top performers, achievements, and your position in the global coding community.',
+    keywords: 'leaderboard, top developers, coding competition, achievements, rankings, programming leaderboard, developer stats',
+    url: '/dashboard/leaderboard',
+  },
+  career: {
+    title: 'Career Center - Tech Jobs & Career Development',
+    description: 'Discover tech job opportunities, explore career paths, and get expert guidance to advance your software development career. Find your dream job in tech.',
+    keywords: 'tech jobs, software developer jobs, career development, programming careers, tech career paths, developer jobs, coding careers',
+    url: '/dashboard/career',
+  },
+  
+  feedback: {
+    title: 'Feedback Center - Share Your Thoughts',
+    description: 'Share your feedback, report bugs, suggest features, and help us improve Coduxa. Your input helps us create a better programming certification platform.',
+    keywords: 'feedback, bug report, feature request, improvement suggestions, user feedback, platform feedback, coduxa feedback',
+    url: '/dashboard/feedback',
   }
 };

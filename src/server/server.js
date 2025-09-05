@@ -12,7 +12,12 @@ const app = express();
 // Middleware
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:5173",
+    origin: [
+      process.env.FRONTEND_URL || "http://localhost:5173",
+      "http://localhost:5175", // Add support for port 5175
+      "http://localhost:3000", // Add support for port 3000
+      "http://localhost:5174"  // Add support for port 5174
+    ],
     credentials: true,
   })
 );

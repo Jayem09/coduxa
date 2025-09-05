@@ -20,6 +20,13 @@ import CreditsPage from "./backend/pages/CreditsModal";
 import CertificationsPage from "./backend/pages/CertificationsPage";
 import { SidebarProvider, SidebarTrigger } from "./backend/components/ui/sidebar";
 import UserSettings from "./backend/pages/UserSettings";
+import ExamsPage from "./backend/pages/ExamsPage";
+import FAQs from "./components/FAQs";
+import Roadmap from "./components/Roadmap";
+import Leaderboard from "./components/Leaderboard";
+import Career from "./components/Career";
+import Feedback from "./components/Feedback";
+import { CreditsProvider } from "./services/CreditsContext";
 
 export default function App() {
   const [user, setUser] = useState<any>(null);
@@ -94,6 +101,7 @@ export default function App() {
           </>
         } />
 
+
         {/* Dashboard routes */}
         <Route
           path="/dashboard/*"
@@ -101,14 +109,15 @@ export default function App() {
             !user ? (
               <Navigate to="/login" replace />
             ) : (
-              <SidebarProvider>
-                <div className="flex min-h-screen w-full">
-                  <AdminSidebar />
-                  {/* Remove all constraints and padding */}
-                  <main 
-                    className="flex-1 bg-gray-100" 
-                    style={{ width: '100%', maxWidth: 'none', padding: 0, margin: 0 }}
-                  >
+              <CreditsProvider>
+                <SidebarProvider>
+                  <div className="flex min-h-screen w-full">
+                    <AdminSidebar />
+                    {/* Remove all constraints and padding */}
+                    <main 
+                      className="flex-1 bg-gray-100" 
+                      style={{ width: '100%', maxWidth: 'none', padding: 0, margin: 0 }}
+                    >
                     {/* Mobile Navigation Header */}
                     <div className="md:hidden flex items-center justify-between p-4 bg-white border-b border-gray-200">
                       <div className="flex items-center gap-2">
@@ -136,6 +145,16 @@ export default function App() {
                           <CertificationsPage />
                         </>
                       } />
+                      <Route path="exams" element={
+                        <>
+                          <SEO 
+                            title="Exams - Coduxa"
+                            description="Take programming exams and earn certifications"
+                            url="/dashboard/exams"
+                          />
+                          <ExamsPage />
+                        </>
+                      } />
                       <Route
                         path="admin"
                         element={isAdminUser(user) ? (
@@ -151,10 +170,41 @@ export default function App() {
                           <UserSettings />
                         </>
                       } />
+                      <Route path="faqs" element={
+                        <>
+                          <SEO {...seoConfigs.faqs} />
+                          <FAQs />
+                        </>
+                      } />
+                      <Route path="roadmap" element={
+                        <>
+                          <SEO {...seoConfigs.roadmap} />
+                          <Roadmap />
+                        </>
+                      } />
+                                  <Route path="leaderboard" element={
+              <>
+                <SEO {...seoConfigs.leaderboard} />
+                <Leaderboard />
+              </>
+            } />
+            <Route path="career" element={
+              <>
+                <SEO {...seoConfigs.career} />
+                <Career />
+              </>
+            } />
+            <Route path="feedback" element={
+              <>
+                <SEO {...seoConfigs.feedback} />
+                <Feedback />
+              </>
+            } />
                     </Routes>
-                  </main>
-                </div>
-              </SidebarProvider>
+                    </main>
+                  </div>
+                </SidebarProvider>
+              </CreditsProvider>
             )
           }
         />

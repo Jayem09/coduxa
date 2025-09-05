@@ -52,7 +52,7 @@ console.log('✅ Supabase client initialized successfully');
 
 // Health check endpoint
 app.get('/health', (req, res) => {
-  res.json({ 
+  res.json({
     status: 'OK', 
     timestamp: new Date().toISOString(),
     environment: {

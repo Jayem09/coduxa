@@ -73,15 +73,15 @@ export function CodeCredHeader() {
 
     return (
         <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
-            <nav className="max-w-7xl mx-auto px-6">
-                <div className="flex items-center justify-between h-16">
+            <nav className="max-w-7xl mx-auto px-4 sm:px-6">
+                <div className="flex items-center justify-between h-14 sm:h-16">
                     {/* Logo */}
                     <div className="flex items-center gap-2">
                         <Link to="/" className="flex items-center gap-2">
-                            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                                <Code className="h-5 w-5 text-primary-foreground" />
+                            <div className="w-7 h-7 sm:w-8 sm:h-8 bg-primary rounded-lg flex items-center justify-center">
+                                <Code className="h-4 w-4 sm:h-5 sm:w-5 text-primary-foreground" />
                             </div>
-                            <span className="text-xl font-bold">coduxa</span>
+                            <span className="text-lg sm:text-xl font-bold">coduxa</span>
                         </Link>
                     </div>
 
@@ -147,7 +147,7 @@ export function CodeCredHeader() {
                     </div>
 
                     {/* Right Side Actions */}
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-2 sm:gap-4">
                         {/* Desktop actions */}
                         <div className="hidden sm:flex items-center gap-2">
                             {isAuthed ? (
@@ -173,10 +173,10 @@ export function CodeCredHeader() {
                         <Button
                             variant="ghost"
                             size="sm"
-                            className="lg:hidden"
+                            className="lg:hidden p-2"
                             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                         >
-                            {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                            {isMobileMenuOpen ? <X className="h-4 w-4 sm:h-5 sm:w-5" /> : <Menu className="h-4 w-4 sm:h-5 sm:w-5" />}
                         </Button>
                     </div>
                 </div>
@@ -189,7 +189,7 @@ export function CodeCredHeader() {
                                 <a
                                     key={item.name}
                                     href={item.href}
-                                    className="block px-3 py-2 text-base font-medium text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
+                                    className="block px-3 py-2 text-sm sm:text-base font-medium text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
                                     {item.name}
@@ -199,23 +199,23 @@ export function CodeCredHeader() {
                                 <div className="flex flex-col gap-2 px-3">
                                     {isAuthed ? (
                                         <>
-                                            <Button variant="ghost" size="sm" className="w-full justify-start" asChild>
+                                            <Button variant="ghost" size="sm" className="w-full justify-start text-sm" asChild>
                                                 <Link to={isAdmin ? "/dashboard/admin" : "/dashboard/credits"} onClick={() => setIsMobileMenuOpen(false)}>
                                                     Dashboard
                                                 </Link>
                                             </Button>
-                                            <Button size="sm" className="w-full" variant="secondary" onClick={() => { handleLogout(); setIsMobileMenuOpen(false); }}>
+                                            <Button size="sm" className="w-full text-sm" variant="secondary" onClick={() => { handleLogout(); setIsMobileMenuOpen(false); }}>
                                                 Logout
                                             </Button>
                                         </>
                                     ) : (
                                         <>
-                                            <Button variant="ghost" size="sm" className="w-full justify-start" asChild>
+                                            <Button variant="ghost" size="sm" className="w-full justify-start text-sm" asChild>
                                                 <Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>
                                                     Login
                                                 </Link>
                                             </Button>
-                                            <Button size="sm" className="w-full" asChild>
+                                            <Button size="sm" className="w-full text-sm" asChild>
                                                 <Link to="/signup" onClick={() => setIsMobileMenuOpen(false)}>
                                                     Get Started
                                                 </Link>
