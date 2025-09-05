@@ -279,7 +279,7 @@ app.post("/test-credits", async (req, res) => {
 app.use((req, res) => res.status(404).json({ error: "Route not found" }));
 
 // Serve sitemap.xml with correct content-type
-app.get("/sitemap.xml", (req, res) => {
+app.get("/sitemap", (req, res) => {
   res.setHeader("Content-Type", "application/xml");
   res.send(`<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

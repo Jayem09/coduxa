@@ -50,7 +50,7 @@
       "dest": "/assets/$1"
     },
     {
-      "src": "/sitemap.xml",
+      "src": "/sitemap",
       "dest": "/src/server/server.js"
     },
     {
