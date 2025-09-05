@@ -50,20 +50,20 @@
       "dest": "/assets/$1"
     },
     {
-      "src": "/(.*\\.(js|css|ico|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot|xml|txt))",
-      "dest": "/$1"
+      "src": "/sitemap.xml",
+      "dest": "/src/server/server.js"
+    },
+    {
+      "src": "/robots.txt",
+      "dest": "/robots.txt"
     },
     {
       "src": "/googlecb559eeeff31b59b.html",
       "dest": "/googlecb559eeeff31b59b.html"
     },
     {
-      "src": "/sitemap.xml",
-      "dest": "/sitemap.xml"
-    },
-    {
-      "src": "/robots.txt",
-      "dest": "/robots.txt"
+      "src": "/(.*\\.(js|css|ico|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot))",
+      "dest": "/$1"
     },
     {
       "src": "/(.*)",
