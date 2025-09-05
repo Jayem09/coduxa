@@ -80,7 +80,7 @@ app.post("/webhook", async (req, res) => {
     // Calculate credits from description or amount
     if (!credits) {
       // Try to extract from description: "Pro Pack • 100 credits"
-      const descMatch = event?.description?.match(/(\d+)\s+credits/);
+      const descMatch = event?.description?.match(/(\d+)\s*credits/);
       if (descMatch) {
         credits = Number(descMatch[1]);
         console.log('Extracted credits from description:', credits);
