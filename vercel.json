@@ -54,6 +54,10 @@
       "dest": "/$1"
     },
     {
+      "src": "/googlecb559eeeff31b59b.html",
+      "dest": "/googlecb559eeeff31b59b.html"
+    },
+    {
       "src": "/(.*)",
       "dest": "/index.html"
     }
