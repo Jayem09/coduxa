@@ -90,6 +90,14 @@ router.post("/create-invoice", async (req, res) => {
 // Webhook
 router.post("/webhook", async (req, res) => {
   try {
+    // Handle Vercel deployment protection bypass
+    const bypassToken = req.query['x-vercel-protection-bypass'];
+    if (bypassToken && process.env.VERCEL_PROTECTION_BYPASS_TOKEN) {
+      if (bypassToken !== process.env.VERCEL_PROTECTION_BYPASS_TOKEN) {
+        return res.status(401).json({ error: 'Invalid bypass token' });
+      }
+    }
+
     const event = req.body;
     if (event?.status !== "PAID") return res.sendStatus(200);
 
