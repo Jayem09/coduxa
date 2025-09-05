@@ -90,6 +90,8 @@ router.post("/create-invoice", async (req, res) => {
 // Webhook
 router.post("/webhook", async (req, res) => {
   try {
+    console.log('Webhook received:', JSON.stringify(req.body, null, 2));
+    
     // Handle Vercel deployment protection bypass
     const bypassToken = req.query['x-vercel-protection-bypass'];
     if (bypassToken && process.env.VERCEL_PROTECTION_BYPASS_TOKEN) {
@@ -99,19 +101,38 @@ router.post("/webhook", async (req, res) => {
     }
 
     const event = req.body;
-    if (event?.status !== "PAID") return res.sendStatus(200);
+    if (event?.status !== "PAID") {
+      console.log('Webhook status not PAID:', event?.status);
+      return res.sendStatus(200);
+    }
 
-    // Extract user and credits
-    let userId = event?.metadata?.user_id;
+    // Extract user and credits from Xendit webhook
+    let userId = event?.user_id || event?.metadata?.user_id;
     let credits = Number(event?.metadata?.credits || 0);
+    
+    // If no credits in metadata, try to extract from external_id or calculate from amount
+    if (!credits && event?.external_id) {
+      const m = String(event.external_id).match(/^topup-(.+)-\d+$/);
+      if (m) userId = m[1];
+    }
+    
+    // If still no credits, calculate from amount (assuming 1 credit = 6000 IDR)
+    if (!credits && event?.amount) {
+      credits = Math.floor(Number(event.amount) / 6000); // 1 credit = 6000 IDR
+    }
+    
+    // If still no userId, try to extract from external_id pattern
     if (!userId && event?.external_id) {
       const m = String(event.external_id).match(/^topup-(.+)-\d+$/);
       if (m) userId = m[1];
     }
-    if (!credits && event?.amount) {
-      credits = Math.floor(Number(event.amount) / 6); // fallback conv
+    
+    console.log('Webhook data:', { userId, credits, external_id: event?.external_id, amount: event?.amount });
+    
+    if (!userId || credits <= 0) {
+      console.error('Invalid webhook data:', { userId, credits, event });
+      return res.sendStatus(400);
     }
-    if (!userId || credits <= 0) return res.sendStatus(400);
 
     // Try RPC with both arg name sets
     let rpcError = null;
