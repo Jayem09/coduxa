@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';
+import '@testing-library/jest-dom';
 import Feedback from '../Feedback';
 import { FeedbackService } from '../../services/feedbackService';
 
@@ -120,7 +121,7 @@ vi.mock('lucide-react', () => ({
 
 // Mock FeedbackService
 vi.mock('../../services/feedbackService', async (importOriginal) => {
-  const actual = await importOriginal();
+  const actual = await importOriginal() as any;
   return {
     ...actual,
     FeedbackService: {

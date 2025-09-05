@@ -9,12 +9,12 @@ type CreateInvoiceArgs = {
 
 class PaymentService {
   async getPackages(): Promise<any> {
-    const res = await fetch(`${API_BASE_URL}/payments/packages`);
+    const res = await fetch(`${API_BASE_URL}/api/packages`);
     return await res.json();
   }
 
   async createInvoice({ userId, amount, credits, packTitle }: CreateInvoiceArgs): Promise<any> {
-    const res = await fetch(`${API_BASE_URL}/create-invoice`, {
+    const res = await fetch(`${API_BASE_URL}/api/create-invoice`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ userId, amount, credits, packTitle }),
@@ -23,7 +23,7 @@ class PaymentService {
   }
 
   async getUserCredits(userId: string): Promise<any> {
-    const res = await fetch(`${API_BASE_URL}/payments/credits/${userId}`);
+    const res = await fetch(`${API_BASE_URL}/api/credits/${userId}`);
     return await res.json();
   }
 }

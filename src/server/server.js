@@ -29,7 +29,7 @@ const adminLimiter = rateLimit({ windowMs: 60 * 1000, max: 60 }); // 60 req/min
 const webhookLimiter = rateLimit({ windowMs: 60 * 1000, max: 120 }); // 120 req/min
 
 // Mount payment routes
-app.use("/", webhookLimiter, paymentRoutes);
+app.use("/api", webhookLimiter, paymentRoutes);
 // Mount admin routes
 app.use("/admin", adminLimiter, adminRoutes);
 
@@ -40,7 +40,7 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
-app.get("/credits/:userId", async (req, res) => {
+app.get("/api/credits/:userId", async (req, res) => {
   const { userId } = req.params;
   try {
     const { data, error } = await supabase

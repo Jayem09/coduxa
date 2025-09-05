@@ -77,7 +77,7 @@ ${certificateData.recipientName}`
     try {
       const text = shareTexts[platform as keyof typeof shareTexts] || shareTexts.default;
       const url = encodeURIComponent(shareUrl);
-      const encodedText = encodeURIComponent(text);
+      const encodedText = typeof text === 'string' ? encodeURIComponent(text) : encodeURIComponent(text.body);
       
       let shareUrl_final = '';
       

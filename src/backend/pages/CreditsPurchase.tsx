@@ -41,7 +41,7 @@ const CreditsPurchase: React.FC<CreditsPurchaseProps> = ({ userId }) => {
 
   const fetchUserCredits = async () => {
     try {
-      const res = await fetch(`${API_BASE_URL}/payments/credits/${userId}`);
+      const res = await fetch(`${API_BASE_URL}/api/credits/${userId}`);
       const data = await res.json();
       if (data.success) setUserCredits(data.credits);
     } catch (err) {

@@ -1,15 +1,27 @@
 {
-  "extends": "./tsconfig.app.json",
   "compilerOptions": {
+    "target": "ES2022",
+    "useDefineForClassFields": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "strict": false,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "strict": false,
     "types": ["vitest/globals", "@testing-library/jest-dom"]
   },
   "include": [
     "src/**/*.test.ts",
     "src/**/*.test.tsx",
-    "src/**/__tests__/**",
-    "src/test/**"
+    "src/**/__tests__/**/*.ts",
+    "src/**/__tests__/**/*.tsx",
+    "src/test/**/*.ts",
+    "src/test/**/*.tsx"
   ]
 }
