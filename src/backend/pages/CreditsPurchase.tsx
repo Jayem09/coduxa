@@ -159,6 +159,37 @@ const CreditsPurchase: React.FC<CreditsPurchaseProps> = ({ userId }) => {
           </div>
         ))}
       </div>
+      
+      {/* Debug section - remove this after fixing webhook */}
+      <div className="mt-8 p-4 bg-yellow-900/20 border border-yellow-500/30 rounded-lg">
+        <h3 className="text-yellow-400 font-bold mb-2">Debug Section</h3>
+        <p className="text-yellow-200 text-sm mb-3">
+          If credits aren't added after payment, use this button to manually add 100 credits:
+        </p>
+        <button
+          onClick={async () => {
+            try {
+              const res = await fetch(`${API_BASE_URL}/api/test-add-credits`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ userId, credits: 100 })
+              });
+              const data = await res.json();
+              if (data.success) {
+                alert(`Success! Added 100 credits. Current total: ${data.currentCredits}`);
+                fetchUserCredits(); // Refresh the display
+              } else {
+                alert(`Error: ${data.error}`);
+              }
+            } catch (err) {
+              alert(`Error: ${err.message}`);
+            }
+          }}
+          className="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded"
+        >
+          Add 100 Credits (Debug)
+        </button>
+      </div>
     </div>
   );
 };
