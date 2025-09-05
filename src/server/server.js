@@ -207,6 +207,70 @@ app.get("/health", (req, res) => {
   res.json({ status: "OK", timestamp: new Date().toISOString() });
 });
 
+// Test endpoint to manually add credits
+app.post("/test-credits", async (req, res) => {
+  try {
+    const { userId, credits } = req.body;
+    
+    if (!userId || !credits) {
+      return res.status(400).json({ error: "Missing userId or credits" });
+    }
+    
+    console.log(`Manually adding ${credits} credits to user ${userId}`);
+    
+    // Try RPC first
+    const rpc1 = await supabase.rpc("increment_credits", {
+      p_user_id: userId,
+      p_credit_amount: credits,
+    });
+    
+    if (rpc1.error) {
+      console.log('RPC failed, trying fallback:', rpc1.error);
+      
+      // Fallback to direct update
+      const current = await supabase
+        .from("user_credits")
+        .select("credits")
+        .eq("user_id", userId)
+        .single();
+      
+      const currentCredits = current.data?.credits || 0;
+      const newCredits = currentCredits + credits;
+      
+      const upsert = await supabase
+        .from("user_credits")
+        .upsert({ user_id: userId, credits: newCredits });
+      
+      if (upsert.error) {
+        return res.status(500).json({ error: "Failed to add credits", details: upsert.error });
+      }
+      
+      return res.json({ 
+        success: true, 
+        message: `Added ${credits} credits using fallback method`,
+        currentCredits: newCredits
+      });
+    }
+    
+    // Get updated credits
+    const { data: updatedCredits } = await supabase
+      .from("user_credits")
+      .select("credits")
+      .eq("user_id", userId)
+      .single();
+    
+    res.json({ 
+      success: true, 
+      message: `Added ${credits} credits successfully`,
+      currentCredits: updatedCredits?.credits || 0
+    });
+    
+  } catch (err) {
+    console.error("Test credits error:", err);
+    res.status(500).json({ error: "Internal server error", details: err.message });
+  }
+});
+
 // 404 handler
 app.use((req, res) => res.status(404).json({ error: "Route not found" }));
 
