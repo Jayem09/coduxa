@@ -49,12 +49,12 @@ const webhookLimiter = rateLimit({
 });
 
 // Mount payment routes
-app.use("/api", webhookLimiter, paymentRoutes);
+app.use("/api", paymentRoutes);
 // Mount admin routes
 app.use("/admin", adminLimiter, adminRoutes);
 
-// Direct webhook route (for Xendit)
-app.use("/webhook", webhookLimiter, paymentRoutes);
+// Direct webhook route (for Xendit) - no rate limiting to avoid proxy issues
+app.use("/webhook", paymentRoutes);
 
 // Route to fetch user credits
 // Initialize Supabase client for server routes
