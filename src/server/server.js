@@ -53,6 +53,9 @@ app.use("/api", webhookLimiter, paymentRoutes);
 // Mount admin routes
 app.use("/admin", adminLimiter, adminRoutes);
 
+// Direct webhook route (for Xendit)
+app.use("/webhook", webhookLimiter, paymentRoutes);
+
 // Route to fetch user credits
 // Initialize Supabase client for server routes
 const supabase = createClient(
