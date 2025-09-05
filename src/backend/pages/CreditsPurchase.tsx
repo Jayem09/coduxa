@@ -23,6 +23,10 @@ const CreditsPurchase: React.FC<CreditsPurchaseProps> = ({ userId }) => {
   const [selectedPackage, setSelectedPackage] = useState<string | null>(null);
 
   const API_BASE_URL = (import.meta as any).env?.VITE_SERVER_URL || "http://localhost:4000";
+  
+  // Debug logging
+  console.log('API_BASE_URL:', API_BASE_URL);
+  console.log('Environment variables:', (import.meta as any).env);
 
   useEffect(() => {
     fetchPackages();
@@ -57,6 +61,9 @@ const CreditsPurchase: React.FC<CreditsPurchaseProps> = ({ userId }) => {
       const pack = packages[packageId];
       if (!pack) throw new Error("Package not found");
 
+      console.log('Making request to:', `${API_BASE_URL}/api/create-invoice`);
+      console.log('Request payload:', { userId, amount: pack.amount, credits: pack.credits, packTitle: pack.title });
+      
       const res = await fetch(`${API_BASE_URL}/api/create-invoice`, {
         method: "POST",
         headers: {
@@ -70,7 +77,11 @@ const CreditsPurchase: React.FC<CreditsPurchaseProps> = ({ userId }) => {
         }),
       });
       
+      console.log('Response status:', res.status);
+      console.log('Response headers:', res.headers);
+      
       const data = await res.json();
+      console.log('Response data:', data);
       
       if (data.success && data.invoice_url) {
         // Redirect to Xendit payment page
@@ -80,7 +91,7 @@ const CreditsPurchase: React.FC<CreditsPurchaseProps> = ({ userId }) => {
       }
     } catch (err) {
       console.error("Purchase error:", err);
-      alert("Failed to create payment. Please try again.");
+      alert(`Failed to create payment: ${err.message}. Please try again.`);
     } finally {
       setLoading(false);
       setSelectedPackage(null);
