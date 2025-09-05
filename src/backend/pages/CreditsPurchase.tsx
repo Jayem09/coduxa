@@ -22,7 +22,7 @@ const CreditsPurchase: React.FC<CreditsPurchaseProps> = ({ userId }) => {
   const [userCredits, setUserCredits] = useState(0);
   const [selectedPackage, setSelectedPackage] = useState<string | null>(null);
 
-  const API_BASE_URL = "http://localhost:4000/api";
+  const API_BASE_URL = (import.meta as any).env?.VITE_API_URL || "http://localhost:4000";
 
   useEffect(() => {
     fetchPackages();
@@ -31,7 +31,7 @@ const CreditsPurchase: React.FC<CreditsPurchaseProps> = ({ userId }) => {
 
   const fetchPackages = async () => {
     try {
-      const res = await fetch(`${API_BASE_URL}/payments/packages`);
+      const res = await fetch(`${API_BASE_URL}/api/packages`);
       const data = await res.json();
       if (data.success) setPackages(data.packages as Packages);
     } catch (err) {
@@ -57,7 +57,7 @@ const CreditsPurchase: React.FC<CreditsPurchaseProps> = ({ userId }) => {
       const pack = packages[packageId];
       if (!pack) throw new Error("Package not found");
 
-      const res = await fetch(`${API_BASE_URL}/payments/create-invoice`, {
+      const res = await fetch(`${API_BASE_URL}/api/create-invoice`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
