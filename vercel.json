@@ -30,6 +30,10 @@
       "dest": "/src/server/server.js"
     },
     {
+      "src": "/webhook",
+      "dest": "/src/server/server.js"
+    },
+    {
       "src": "/webhook/(.*)",
       "dest": "/src/server/server.js"
     },
