@@ -1,4 +1,4 @@
-const API_BASE_URL: string = (import.meta as any).env?.VITE_API_URL || "http://localhost:4000";
+const API_BASE_URL: string = (import.meta as any).env?.VITE_SERVER_URL || "http://localhost:4000";
 
 type CreateInvoiceArgs = {
   userId: string;

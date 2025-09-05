@@ -22,7 +22,7 @@ const CreditsPurchase: React.FC<CreditsPurchaseProps> = ({ userId }) => {
   const [userCredits, setUserCredits] = useState(0);
   const [selectedPackage, setSelectedPackage] = useState<string | null>(null);
 
-  const API_BASE_URL = (import.meta as any).env?.VITE_API_URL || "http://localhost:4000";
+  const API_BASE_URL = (import.meta as any).env?.VITE_SERVER_URL || "http://localhost:4000";
 
   useEffect(() => {
     fetchPackages();
