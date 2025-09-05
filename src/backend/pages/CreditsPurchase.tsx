@@ -181,8 +181,8 @@ const CreditsPurchase: React.FC<CreditsPurchaseProps> = ({ userId }) => {
               } else {
                 alert(`Error: ${data.error}`);
               }
-            } catch (err) {
-              alert(`Error: ${err.message}`);
+            } catch (err: any) {
+              alert(`Error: ${err && err.message ? err.message : err}`);
             }
           }}
           className="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded"
