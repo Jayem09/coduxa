@@ -8,25 +8,34 @@ import { CodeCredHero } from "./components/CoduxaHero";
 import { CodeCredServices } from "./components/CoduxaServices";
 import { CodeCredStats } from "./components/CoduxaStats";
 import { CodeCredFooter } from "./components/CoduxaFooter";
-import AdminDashboard from "./backend/pages/AdminDashboard";
+import { lazy, Suspense } from "react";
 import SEO, { seoConfigs } from "./components/SEO";
 
-import { LoginForm } from "./components/pages/LoginForm";
-import { SignUpForm } from "./components/pages/SignUpForm";
-import { ResetPasswordForm } from "./components/pages/ResetPasswordForm";
+// Lazy load heavy components
+const AdminDashboard = lazy(() => import("./backend/pages/AdminDashboard"));
+const LoginForm = lazy(() => import("./components/pages/LoginForm").then(m => ({ default: m.LoginForm })));
+const SignUpForm = lazy(() => import("./components/pages/SignUpForm").then(m => ({ default: m.SignUpForm })));
+const ResetPasswordForm = lazy(() => import("./components/pages/ResetPasswordForm").then(m => ({ default: m.ResetPasswordForm })));
+const AdminSidebar = lazy(() => import("./backend/pages/AdminSidebar"));
+const CreditsPage = lazy(() => import("./backend/pages/CreditsModal"));
+const CertificationsPage = lazy(() => import("./backend/pages/CertificationsPage"));
+const UserSettings = lazy(() => import("./backend/pages/UserSettings"));
+const ExamsPage = lazy(() => import("./backend/pages/ExamsPage"));
+const FAQs = lazy(() => import("./components/FAQs"));
+const Roadmap = lazy(() => import("./components/Roadmap"));
+const Leaderboard = lazy(() => import("./components/Leaderboard"));
+const Career = lazy(() => import("./components/Career"));
+const Feedback = lazy(() => import("./components/Feedback"));
 
-import AdminSidebar from "./backend/pages/AdminSidebar";
-import CreditsPage from "./backend/pages/CreditsModal";
-import CertificationsPage from "./backend/pages/CertificationsPage";
 import { SidebarProvider, SidebarTrigger } from "./backend/components/ui/sidebar";
-import UserSettings from "./backend/pages/UserSettings";
-import ExamsPage from "./backend/pages/ExamsPage";
-import FAQs from "./components/FAQs";
-import Roadmap from "./components/Roadmap";
-import Leaderboard from "./components/Leaderboard";
-import Career from "./components/Career";
-import Feedback from "./components/Feedback";
 import { CreditsProvider } from "./services/CreditsContext";
+
+// Loading component for Suspense
+const LoadingSpinner = () => (
+  <div className="flex items-center justify-center min-h-screen">
+    <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+  </div>
+);
 
 export default function App() {
   const [user, setUser] = useState<any>(null);
@@ -79,26 +88,26 @@ export default function App() {
 
         {/* Auth routes */}
         <Route path="/login" element={
-          <>
+          <Suspense fallback={<LoadingSpinner />}>
             <SEO {...seoConfigs.login} />
             <LoginForm />
-          </>
+          </Suspense>
         } />
         <Route path="/signup" element={
-          <>
+          <Suspense fallback={<LoadingSpinner />}>
             <SEO {...seoConfigs.signup} />
             <SignUpForm />
-          </>
+          </Suspense>
         } />
         <Route path="/reset-password" element={
-          <>
+          <Suspense fallback={<LoadingSpinner />}>
             <SEO 
               title="Reset Password - Coduxa"
               description="Reset your Coduxa account password securely"
               url="/reset-password"
             />
             <ResetPasswordForm />
-          </>
+          </Suspense>
         } />
 
 
@@ -131,76 +140,78 @@ export default function App() {
                       <SidebarTrigger />
                     </div>
                     
-                    <Routes>
-                      <Route index element={<Navigate to="credits" replace />} />
-                      <Route path="credits" element={
-                        <>
-                          <SEO {...seoConfigs.credits} />
-                          <CreditsPage />
-                        </>
-                      } />
-                      <Route path="certifications" element={
-                        <>
-                          <SEO {...seoConfigs.certifications} />
-                          <CertificationsPage />
-                        </>
-                      } />
-                      <Route path="exams" element={
-                        <>
-                          <SEO 
-                            title="Exams - Coduxa"
-                            description="Take programming exams and earn certifications"
-                            url="/dashboard/exams"
-                          />
-                          <ExamsPage />
-                        </>
-                      } />
-                      <Route
-                        path="admin"
-                        element={isAdminUser(user) ? (
+                    <Suspense fallback={<LoadingSpinner />}>
+                      <Routes>
+                        <Route index element={<Navigate to="credits" replace />} />
+                        <Route path="credits" element={
                           <>
-                            <SEO {...seoConfigs.admin} />
-                            <AdminDashboard />
+                            <SEO {...seoConfigs.credits} />
+                            <CreditsPage />
                           </>
-                        ) : <Navigate to="/dashboard/credits" replace />}
-                      />
-                      <Route path="settings" element={
-                        <>
-                          <SEO {...seoConfigs.dashboard} />
-                          <UserSettings />
-                        </>
-                      } />
-                      <Route path="faqs" element={
-                        <>
-                          <SEO {...seoConfigs.faqs} />
-                          <FAQs />
-                        </>
-                      } />
-                      <Route path="roadmap" element={
-                        <>
-                          <SEO {...seoConfigs.roadmap} />
-                          <Roadmap />
-                        </>
-                      } />
-                                  <Route path="leaderboard" element={
-              <>
-                <SEO {...seoConfigs.leaderboard} />
-                <Leaderboard />
-              </>
-            } />
-            <Route path="career" element={
-              <>
-                <SEO {...seoConfigs.career} />
-                <Career />
-              </>
-            } />
-            <Route path="feedback" element={
-              <>
-                <SEO {...seoConfigs.feedback} />
-                <Feedback />
-              </>
-            } />
-                    </Routes>
+                        } />
+                        <Route path="certifications" element={
+                          <>
+                            <SEO {...seoConfigs.certifications} />
+                            <CertificationsPage />
+                          </>
+                        } />
+                        <Route path="exams" element={
+                          <>
+                            <SEO 
+                              title="Exams - Coduxa"
+                              description="Take programming exams and earn certifications"
+                              url="/dashboard/exams"
+                            />
+                            <ExamsPage />
+                          </>
+                        } />
+                        <Route
+                          path="admin"
+                          element={isAdminUser(user) ? (
+                            <>
+                              <SEO {...seoConfigs.admin} />
+                              <AdminDashboard />
+                            </>
+                          ) : <Navigate to="/dashboard/credits" replace />}
+                        />
+                        <Route path="settings" element={
+                          <>
+                            <SEO {...seoConfigs.dashboard} />
+                            <UserSettings />
+                          </>
+                        } />
+                        <Route path="faqs" element={
+                          <>
+                            <SEO {...seoConfigs.faqs} />
+                            <FAQs />
+                          </>
+                        } />
+                        <Route path="roadmap" element={
+                          <>
+                            <SEO {...seoConfigs.roadmap} />
+                            <Roadmap />
+                          </>
+                        } />
+                        <Route path="leaderboard" element={
+                          <>
+                            <SEO {...seoConfigs.leaderboard} />
+                            <Leaderboard />
+                          </>
+                        } />
+                        <Route path="career" element={
+                          <>
+                            <SEO {...seoConfigs.career} />
+                            <Career />
+                          </>
+                        } />
+                        <Route path="feedback" element={
+                          <>
+                            <SEO {...seoConfigs.feedback} />
+                            <Feedback />
+                          </>
+                        } />
+                      </Routes>
+                    </Suspense>
                     </main>
                   </div>
                 </SidebarProvider>

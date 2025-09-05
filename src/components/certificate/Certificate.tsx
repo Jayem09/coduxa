@@ -9,8 +9,14 @@ import {
   ExternalLink,
   Shield
 } from 'lucide-react';
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
+// Lazy load PDF generation libraries
+const loadPDFLibraries = async () => {
+  const [html2canvas, jsPDF] = await Promise.all([
+    import('html2canvas'),
+    import('jspdf')
+  ]);
+  return { html2canvas: html2canvas.default, jsPDF: jsPDF.default };
+};
 
 interface CertificateData {
   id: string;
@@ -63,6 +69,9 @@ export default function Certificate({
     
     setIsDownloading(true);
     try {
+      // Lazy load PDF libraries
+      const { html2canvas, jsPDF } = await loadPDFLibraries();
+      
       const canvas = await html2canvas(certificateRef.current, {
         scale: 2,
         useCORS: true,
