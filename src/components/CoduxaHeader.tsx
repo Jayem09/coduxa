@@ -67,13 +67,19 @@ export function CodeCredHeader() {
     }, []);
 
     const handleLogout = async () => {
-        await supabase.auth.signOut();
-        // Force update authentication state immediately
-        setIsAuthed(false);
-        setIsAdmin(false);
-        setDisplayName("");
-        // Force a page reload to clear any cached state
-        window.location.href = '/';
+        console.log('Logout button clicked!');
+        try {
+            await supabase.auth.signOut();
+            console.log('Supabase signOut successful');
+            // Force update authentication state immediately
+            setIsAuthed(false);
+            setIsAdmin(false);
+            setDisplayName("");
+            // Force a page reload to clear any cached state
+            window.location.href = '/';
+        } catch (error) {
+            console.error('Logout error:', error);
+        }
     };
 
     return (
@@ -160,7 +166,14 @@ export function CodeCredHeader() {
                                     <Button variant="ghost" size="sm" asChild>
                                         <Link to={isAdmin ? "/dashboard/credits" : "/dashboard/credits"}>Dashboard</Link>
                                     </Button>
-                                    <Button size="sm" variant="secondary" onClick={handleLogout}>Logout</Button>
+                                    <Button 
+                                        size="sm" 
+                                        variant="secondary" 
+                                        onClick={handleLogout}
+                                        style={{ cursor: 'pointer', zIndex: 1000 }}
+                                    >
+                                        Logout
+                                    </Button>
                                 </>
                             ) : (
                                 <>
@@ -209,7 +222,17 @@ export function CodeCredHeader() {
                                                     Dashboard
                                                 </Link>
                                             </Button>
-                                            <Button size="sm" className="w-full text-sm" variant="secondary" onClick={() => { handleLogout(); setIsMobileMenuOpen(false); }}>
+                                            <Button 
+                                                size="sm" 
+                                                className="w-full text-sm" 
+                                                variant="secondary" 
+                                                onClick={() => { 
+                                                    console.log('Mobile logout clicked!');
+                                                    handleLogout(); 
+                                                    setIsMobileMenuOpen(false); 
+                                                }}
+                                                style={{ cursor: 'pointer' }}
+                                            >
                                                 Logout
                                             </Button>
                                         </>
