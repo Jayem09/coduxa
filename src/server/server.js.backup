@@ -275,6 +275,8 @@ app.post("/test-credits", async (req, res) => {
   }
 });
 
+// 404 handler
+app.use((req, res) => res.status(404).json({ error: "Route not found" }));
 
 // Serve sitemap.xml with correct content-type
 app.get("/sitemap", (req, res) => {
