@@ -15,18 +15,18 @@ export function CodeCredHero() {
           <div className="space-y-6 sm:space-y-8">
             <div className="space-y-4">
               <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-3 sm:px-4 py-2 rounded-full border border-primary/20">
-                <Zap className="h-3 w-3 sm:h-4 sm:w-4" />
-                <span className="text-xs sm:text-sm font-medium">Building the Future</span>
+                <Code className="h-3 w-3 sm:h-4 sm:w-4" />
+                <span className="text-xs sm:text-sm font-medium">Programming Certification</span>
               </div>
               
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                Build Amazing
-                <span className="block text-primary">Digital</span>
-                <span className="block">Experiences</span>
+                Master Programming
+                <span className="block text-primary">Skills</span>
+                <span className="block">Get Certified</span>
               </h1>
               
               <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-lg leading-relaxed">
-                We create stunning websites and applications that help your business grow and engage your audience effectively.
+                Take comprehensive programming certification exams, earn certificates, and showcase your expertise to employers worldwide.
               </p>
             </div>
             

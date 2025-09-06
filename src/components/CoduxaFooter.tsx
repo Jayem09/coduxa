@@ -88,23 +88,19 @@ export function CodeCredFooter() {
                 <span className="text-lg sm:text-xl font-bold">coduxa</span>
               </div>
               <p className="text-xs sm:text-sm text-muted-foreground mb-4 sm:mb-6 max-w-md leading-relaxed">
-                Creating exceptional digital experiences that help businesses grow and connect 
-                with their audiences. From concept to launch, we're your trusted development partner.
+                Empowering developers with comprehensive programming certification exams and courses. 
+                From beginner to expert, we help you validate your skills and advance your career.
               </p>
               
               {/* Contact Info */}
               <div className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-muted-foreground">
                 <div className="flex items-center gap-2">
-                  <MapPin className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
-                  <span>San Francisco, CA 94105</span>
-                </div>
-                <div className="flex items-center gap-2">
                   <Phone className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
-                  <span>+1 (555) 123-4567</span>
+                  <span>09925945563</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Mail className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
-                  <span>hello@coduxa.dev</span>
+                  <span>coduxa@gmail.com</span>
                 </div>
               </div>
             </div>
