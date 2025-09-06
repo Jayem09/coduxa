@@ -46,24 +46,24 @@
       "dest": "/src/server/server.js"
     },
     {
-      "src": "/assets/(.*)",
-      "dest": "/assets/$1"
-    },
-    {
-      "src": "/robots\\.txt",
-      "dest": "/robots.txt"
-    },
-    {
-      "src": "/googlecb559eeeff31b59b\\.html",
-      "dest": "/googlecb559eeeff31b59b.html"
+      "src": "/sitemap",
+      "dest": "/src/server/server.js"
     },
     {
       "src": "/sitemap.xml",
       "dest": "/sitemap.xml"
     },
     {
-      "src": "/test.txt",
-      "dest": "/test.txt"
+      "src": "/robots.txt",
+      "dest": "/robots.txt"
+    },
+    {
+      "src": "/googlecb559eeeff31b59b.html",
+      "dest": "/googlecb559eeeff31b59b.html"
+    },
+    {
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1"
     },
     {
       "src": "/(.*\\.(js|css|ico|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot))",
