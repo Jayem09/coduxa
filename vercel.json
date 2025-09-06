@@ -58,6 +58,10 @@
       "dest": "/googlecb559eeeff31b59b.html"
     },
     {
+      "src": "/sitemap.xml",
+      "dest": "/sitemap.xml"
+    },
+    {
       "src": "/(.*\\.(js|css|ico|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot|xml|txt))",
       "dest": "/$1"
     },
