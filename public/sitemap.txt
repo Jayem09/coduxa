@@ -1,8 +1,0 @@
-https://coduxa.vercel.app/
-https://coduxa.vercel.app/login
-https://coduxa.vercel.app/signup
-https://coduxa.vercel.app/faqs
-https://coduxa.vercel.app/roadmap
-https://coduxa.vercel.app/career
-https://coduxa.vercel.app/leaderboard
-https://coduxa.vercel.app/feedback

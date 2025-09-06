@@ -46,10 +46,6 @@
       "dest": "/src/server/server.js"
     },
     {
-      "src": "/sitemap",
-      "dest": "/src/server/server.js"
-    },
-    {
       "src": "/sitemap.xml",
       "dest": "/sitemap.xml"
     },
