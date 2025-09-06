@@ -167,13 +167,13 @@ export function SignUpForm() {
               />
               <Label htmlFor="terms" className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
                 I agree to the{" "}
-                <a href="/terms" className="text-primary hover:underline">
+                <Link to="/terms" className="text-primary hover:underline">
                   Terms of Service
-                </a>{" "}
+                </Link>{" "}
                 and{" "}
-                <a href="/privacy" className="text-primary hover:underline">
+                <Link to="/privacy" className="text-primary hover:underline">
                   Privacy Policy
-                </a>
+                </Link>
               </Label>
             </div>
 

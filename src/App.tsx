@@ -26,6 +26,8 @@ const Roadmap = lazy(() => import("./components/Roadmap"));
 const Leaderboard = lazy(() => import("./components/Leaderboard"));
 const Career = lazy(() => import("./components/Career"));
 const Feedback = lazy(() => import("./components/Feedback"));
+const TermsOfService = lazy(() => import("./components/pages/TermsOfService"));
+const PrivacyPolicy = lazy(() => import("./components/pages/PrivacyPolicy"));
 
 import { SidebarProvider, SidebarTrigger } from "./backend/components/ui/sidebar";
 import { CreditsProvider } from "./services/CreditsContext";
@@ -109,7 +111,26 @@ export default function App() {
             <ResetPasswordForm />
           </Suspense>
         } />
-
+        <Route path="/terms" element={
+          <Suspense fallback={<LoadingSpinner />}>
+            <SEO 
+              title="Terms of Service - Coduxa"
+              description="Terms of Service for Coduxa programming certification platform"
+              url="/terms"
+            />
+            <TermsOfService />
+          </Suspense>
+        } />
+        <Route path="/privacy" element={
+          <Suspense fallback={<LoadingSpinner />}>
+            <SEO 
+              title="Privacy Policy - Coduxa"
+              description="Privacy Policy for Coduxa programming certification platform"
+              url="/privacy"
+            />
+            <PrivacyPolicy />
+          </Suspense>
+        } />
 
         {/* Dashboard routes */}
         <Route

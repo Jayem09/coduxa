@@ -1,6 +1,7 @@
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Separator } from "./ui/separator";
+import { Link } from "react-router-dom";
 import { 
   Github, 
   Twitter, 
@@ -14,32 +15,32 @@ import {
 
 const footerLinks = {
   services: [
-    { name: "Web Development", href: "#" },
-    { name: "Mobile Apps", href: "#" },
-    { name: "UI/UX Design", href: "#" },
-    { name: "E-Commerce", href: "#" },
-    { name: "Consulting", href: "#" }
+    { name: "Programming Exams", href: "/dashboard/exams" },
+    { name: "Certificates", href: "/dashboard/certifications" },
+    { name: "Leaderboard", href: "/leaderboard" },
+    { name: "Career Path", href: "/career" },
+    { name: "Study Guide", href: "/roadmap" }
   ],
   company: [
     { name: "About Us", href: "#" },
-    { name: "Our Process", href: "#" },
-    { name: "Portfolio", href: "#" },
-    { name: "Case Studies", href: "#" },
+    { name: "How It Works", href: "#" },
+    { name: "Success Stories", href: "#" },
+    { name: "Testimonials", href: "#" },
     { name: "Blog", href: "#" }
   ],
   resources: [
-    { name: "Get Started", href: "#" },
-    { name: "Free Consultation", href: "#" },
-    { name: "Project Estimate", href: "#" },
-    { name: "Technology Guide", href: "#" },
+    { name: "Get Started", href: "/signup" },
+    { name: "Free Trial", href: "/signup" },
+    { name: "Exam Prep", href: "/roadmap" },
+    { name: "FAQ", href: "/faqs" },
     { name: "Best Practices", href: "#" }
   ],
   support: [
-    { name: "Contact Us", href: "#" },
-    { name: "Help Center", href: "#" },
-    { name: "Project Support", href: "#" },
-    { name: "Maintenance", href: "#" },
-    { name: "Training", href: "#" }
+    { name: "Contact Us", href: "/feedback" },
+    { name: "Help Center", href: "/faqs" },
+    { name: "Technical Support", href: "/feedback" },
+    { name: "Account Help", href: "/login" },
+    { name: "Training", href: "/roadmap" }
   ]
 };
 
@@ -107,7 +108,7 @@ export function CodeCredFooter() {
 
             {/* Services Links */}
             <div>
-              <h4 className="font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Services</h4>
+              <h4 className="font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Platform</h4>
               <ul className="space-y-1.5 sm:space-y-2">
                 {footerLinks.services.map((link, index) => (
                   <li key={index}>
@@ -141,7 +142,7 @@ export function CodeCredFooter() {
 
             {/* Resources Links */}
             <div>
-              <h4 className="font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Resources</h4>
+              <h4 className="font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Learning</h4>
               <ul className="space-y-1.5 sm:space-y-2">
                 {footerLinks.resources.map((link, index) => (
                   <li key={index}>
@@ -181,14 +182,14 @@ export function CodeCredFooter() {
         <div className="py-4 sm:py-6">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-6 text-xs sm:text-sm text-muted-foreground">
-              <span>© 2024 coduxa. All rights reserved.</span>
+              <span>© 2024 Coduxa. All rights reserved.</span>
               <div className="flex items-center gap-4 sm:gap-6">
-                <a href="#" className="hover:text-foreground transition-colors">
+                <Link to="/privacy" className="hover:text-foreground transition-colors">
                   Privacy Policy
-                </a>
-                <a href="#" className="hover:text-foreground transition-colors">
+                </Link>
+                <Link to="/terms" className="hover:text-foreground transition-colors">
                   Terms of Service
-                </a>
+                </Link>
                 <a href="#" className="hover:text-foreground transition-colors">
                   Cookie Policy
                 </a>

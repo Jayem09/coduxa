@@ -22,6 +22,7 @@ import {
   Code,
   Settings,
   LogOut,
+  ArrowLeft,
 } from "lucide-react";
 import { supabase } from "../../components/lib/supabaseClient";
 import { useCredits } from "../../services/CreditsContext.tsx";
@@ -120,6 +121,13 @@ export default function AdminSidebar() {
     <Sidebar>
       <SidebarHeader className="p-4">
         <div className="flex items-center gap-2">
+          <button
+            onClick={() => navigate('/')}
+            className="p-1 hover:bg-muted rounded-md transition-colors"
+            title="Back to main page"
+          >
+            <ArrowLeft className="h-4 w-4" />
+          </button>
           <div className=" ml-2 w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
             <Code className="h-4 w-4 text-primary-foreground" />
           </div>
