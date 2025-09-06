@@ -45,22 +45,28 @@ export function CodeCredHeader() {
 
     useEffect(() => {
         const load = async () => {
+            console.log('Loading auth state...');
             const { data } = await supabase.auth.getUser();
             const u = data.user;
             if (u) {
+                console.log('User is authenticated:', u.email);
                 const name = (u.user_metadata?.firstName || u.user_metadata?.first_name || "").toString();
                 const combined = name || u.email || "";
                 setDisplayName(combined);
                 setIsAuthed(true);
                 setIsAdmin(u.app_metadata?.role === 'admin');
             } else {
+                console.log('User is not authenticated');
                 setDisplayName("");
                 setIsAuthed(false);
                 setIsAdmin(false);
             }
         };
         load();
-        const { data: sub } = supabase.auth.onAuthStateChange(() => load());
+        const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
+            console.log('Auth state changed:', event, session?.user?.email || 'no user');
+            load();
+        });
         return () => {
             sub.subscription.unsubscribe();
         };
@@ -75,8 +81,8 @@ export function CodeCredHeader() {
             setIsAuthed(false);
             setIsAdmin(false);
             setDisplayName("");
-            // Force a page reload to clear any cached state
-            window.location.href = '/';
+            // Use navigate instead of window.location to maintain React state
+            navigate('/');
         } catch (error) {
             console.error('Logout error:', error);
         }
