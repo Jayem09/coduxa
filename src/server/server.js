@@ -27,7 +27,6 @@ app.use(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Basic rate limiters with proper proxy configuration
 const adminLimiter = rateLimit({ 
   windowMs: 60 * 1000, 
   max: 60,
@@ -64,11 +63,9 @@ app.post("/webhook", async (req, res) => {
       return res.sendStatus(200);
     }
 
-    // Extract user and credits from Xendit webhook
     let userId = event?.user_id || event?.metadata?.user_id;
     let credits = Number(event?.metadata?.credits || 0);
     
-    // Extract userId from external_id pattern: topup-{userId}-{timestamp}
     if (event?.external_id) {
       const m = String(event.external_id).match(/^topup-(.+)-\d+$/);
       if (m) {
@@ -77,15 +74,12 @@ app.post("/webhook", async (req, res) => {
       }
     }
     
-    // Calculate credits from description or amount
     if (!credits) {
-      // Try to extract from description: "Pro Pack • 100 credits"
       const descMatch = event?.description?.match(/(\d+)\s*credits/);
       if (descMatch) {
         credits = Number(descMatch[1]);
         console.log('Extracted credits from description:', credits);
       } else if (event?.amount) {
-        // Fallback: calculate from amount (assuming 1 credit = 6 PHP for Pro Pack)
         credits = Math.floor(Number(event.amount) / 6);
         console.log('Calculated credits from amount:', credits);
       }
@@ -275,20 +269,169 @@ app.post("/test-credits", async (req, res) => {
   }
 });
 
-
+// Serve sitemap.xml with correct content-type
+app.get("/sitemap", (req, res) => {
+  console.log("Sitemap route /sitemap called");
+  res.setHeader("Content-Type", "application/xml; charset=utf-8");
+  res.setHeader("Cache-Control", "public, max-age=3600");
+  res.send(`<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://coduxa.vercel.app/</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://coduxa.vercel.app/login</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://coduxa.vercel.app/signup</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://coduxa.vercel.app/exams</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://coduxa.vercel.app/leaderboard</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://coduxa.vercel.app/career</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coduxa.vercel.app/roadmap</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coduxa.vercel.app/certifications</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coduxa.vercel.app/faqs</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://coduxa.vercel.app/feedback</loc>
+    <lastmod>2024-12-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://coduxa.vercel.app/privacy</loc>
-    <lastmod>2024-09-06</lastmod>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://coduxa.vercel.app/terms</loc>
+    <lastmod>2024-12-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 </urlset>`);
 });
 
-// 404 handler (must be last)
+// Serve sitemap.xml with correct content-type (alternative route)
+app.get("/sitemap.xml", (req, res) => {
+  res.setHeader("Content-Type", "application/xml; charset=utf-8");
+  res.setHeader("Cache-Control", "public, max-age=3600");
+  res.send(`<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://coduxa.vercel.app/</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://coduxa.vercel.app/login</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://coduxa.vercel.app/signup</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://coduxa.vercel.app/exams</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://coduxa.vercel.app/leaderboard</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://coduxa.vercel.app/career</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coduxa.vercel.app/roadmap</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coduxa.vercel.app/certifications</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coduxa.vercel.app/faqs</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://coduxa.vercel.app/feedback</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://coduxa.vercel.app/privacy</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://coduxa.vercel.app/terms</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+</urlset>`);
+});
+
 app.use((req, res) => res.status(404).json({ error: "Route not found" }));
 
 // Error handler

@@ -47,7 +47,11 @@
     },
     {
       "src": "/sitemap.xml",
-      "dest": "/sitemap.xml"
+      "dest": "/src/server/server.js"
+    },
+    {
+      "src": "/sitemap",
+      "dest": "/src/server/server.js"
     },
     {
       "src": "/robots.txt",

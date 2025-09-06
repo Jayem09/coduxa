@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://coduxa.com/sitemap.xml
+Sitemap: https://coduxa.vercel.app/sitemap.xml
 
 # Disallow admin and private areas
 Disallow: /dashboard/
