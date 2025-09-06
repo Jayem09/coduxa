@@ -18,6 +18,14 @@
   ],
   "routes": [
     {
+      "src": "/sitemap.xml",
+      "dest": "/sitemap.xml"
+    },
+    {
+      "src": "/sitemap",
+      "dest": "/src/server/server.js"
+    },
+    {
       "src": "/api/(.*)",
       "dest": "/src/server/server.js"
     },
@@ -48,14 +56,6 @@
     {
       "src": "/assets/(.*)",
       "dest": "/assets/$1"
-    },
-    {
-      "src": "/sitemap.xml",
-      "dest": "/sitemap.xml"
-    },
-    {
-      "src": "/sitemap",
-      "dest": "/src/server/server.js"
     },
     {
       "src": "/robots\\.txt",
