@@ -275,11 +275,9 @@ app.post("/test-credits", async (req, res) => {
   }
 });
 
-// 404 handler
-app.use((req, res) => res.status(404).json({ error: "Route not found" }));
-
 // Serve sitemap.xml with correct content-type
 app.get("/sitemap", (req, res) => {
+  console.log("Sitemap route /sitemap called");
   res.setHeader("Content-Type", "application/xml");
   res.send(`<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -336,6 +334,7 @@ app.get("/sitemap", (req, res) => {
 
 // Serve sitemap.xml with correct content-type (alternative route)
 app.get("/sitemap.xml", (req, res) => {
+  console.log("Sitemap route /sitemap.xml called");
   res.setHeader("Content-Type", "application/xml");
   res.send(`<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -401,6 +400,9 @@ app.get("/sitemap.xml", (req, res) => {
   </url>
 </urlset>`);
 });
+
+// 404 handler (must be last)
+app.use((req, res) => res.status(404).json({ error: "Route not found" }));
 
 // Error handler
 app.use((err, req, res, next) => {
