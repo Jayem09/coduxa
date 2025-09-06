@@ -62,7 +62,11 @@
       "dest": "/sitemap.xml"
     },
     {
-      "src": "/(.*\\.(js|css|ico|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot|xml|txt))",
+      "src": "/test.txt",
+      "dest": "/test.txt"
+    },
+    {
+      "src": "/(.*\\.(js|css|ico|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot))",
       "dest": "/$1"
     },
     {
