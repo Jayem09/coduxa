@@ -54,6 +54,10 @@
       "dest": "/src/server/server.js"
     },
     {
+      "src": "/sitemap.xml",
+      "dest": "/src/server/server.js"
+    },
+    {
       "src": "/robots.txt",
       "dest": "/robots.txt"
     },
