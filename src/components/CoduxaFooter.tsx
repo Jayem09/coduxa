@@ -24,16 +24,13 @@ const footerLinks = {
   company: [
     { name: "About Us", href: "#" },
     { name: "How It Works", href: "#" },
-    { name: "Success Stories", href: "#" },
-    { name: "Testimonials", href: "#" },
-    { name: "Blog", href: "#" }
+
   ],
   resources: [
     { name: "Get Started", href: "/signup" },
     { name: "Free Trial", href: "/signup" },
     { name: "Exam Prep", href: "/roadmap" },
     { name: "FAQ", href: "/faqs" },
-    { name: "Best Practices", href: "#" }
   ],
   support: [
     { name: "Contact Us", href: "/feedback" },
@@ -45,10 +42,8 @@ const footerLinks = {
 };
 
 const socialLinks = [
-  { name: "GitHub", icon: Github, href: "#" },
-  { name: "Twitter", icon: Twitter, href: "#" },
-  { name: "LinkedIn", icon: Linkedin, href: "#" },
-  { name: "Email", icon: Mail, href: "#" }
+  { name: "GitHub", icon: Github, href: "https://github.com/Jayem09/" },
+  { name: "Email", icon: Mail, href: "coduxa@gmail.com" }
 ];
 
 export function CodeCredFooter() {

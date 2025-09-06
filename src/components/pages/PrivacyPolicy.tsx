@@ -167,7 +167,7 @@ export default function PrivacyPolicy() {
               If you have any questions about this Privacy Policy or our data practices, please contact us:
             </p>
             <div className="bg-muted p-4 rounded-lg">
-              <p><strong>Email:</strong> privacy@coduxa.com</p>
+              <p><strong>Email:</strong>coduxa@gmail.com</p>
               <p><strong>Address:</strong> Coduxa Privacy Team</p>
             </div>
           </section>

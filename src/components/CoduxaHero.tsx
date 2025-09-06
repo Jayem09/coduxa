@@ -1,5 +1,6 @@
 import { Button } from "./ui/button";
 import { ArrowRight, Code, Zap, Users } from "lucide-react";
+import { Link } from "react-router-dom";
 import { ImageWithFallback } from './figma/ImageWithFallback';
 
 export function CodeCredHero() {
@@ -32,13 +33,12 @@ export function CodeCredHero() {
             
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <Button size="lg" className="group w-full sm:w-auto">
-                Get Started
-                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              <Button asChild size="lg" className="group w-full sm:w-auto">
+                <Link to="/signup">
+                  Start Certification
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
               </Button>
-              {/* <Button variant="outline" size="lg">
-                View Portfolio
-              </Button> */}
             </div>
             
             {/* Stats */}

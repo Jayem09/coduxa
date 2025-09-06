@@ -1,6 +1,7 @@
 import { Card, CardContent } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
+import { Link } from "react-router-dom";
 import { 
   Users, 
   Building,
@@ -200,12 +201,11 @@ export function CodeCredStats() {
               Start your certification journey today and prove your programming expertise to the world.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-              <Button size="lg" className="w-full sm:w-auto">
-                Start Certification
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-              <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                View Sample Questions
+              <Button asChild size="lg" className="w-full sm:w-auto">
+                <Link to="/signup">
+                  Start Certification
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
               </Button>
             </div>
           </div>
