@@ -68,7 +68,12 @@ export function CodeCredHeader() {
 
     const handleLogout = async () => {
         await supabase.auth.signOut();
-        navigate('/');
+        // Force update authentication state immediately
+        setIsAuthed(false);
+        setIsAdmin(false);
+        setDisplayName("");
+        // Force a page reload to clear any cached state
+        window.location.href = '/';
     };
 
     return (

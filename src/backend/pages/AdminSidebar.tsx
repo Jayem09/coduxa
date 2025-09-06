@@ -68,7 +68,8 @@ export default function AdminSidebar() {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    navigate('/');
+    // Force clear any cached auth state
+    window.location.href = '/';
   };
 
   useEffect(() => {
