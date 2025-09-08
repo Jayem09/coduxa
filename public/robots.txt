@@ -1,17 +1,21 @@
 User-agent: *
 Allow: /
 
-# Sitemap
-Sitemap: https://coduxa.vercel.app/sitemap.xml
-
 # Disallow admin and private areas
-Disallow: /dashboard/
-Disallow: /admin/
+Disallow: /dashboard/admin/
+Disallow: /api/
+Disallow: /_next/
+Disallow: /private/
 
 # Allow important pages
-Allow: /
-Allow: /login
-Allow: /signup
+Allow: /dashboard/certifications
+Allow: /dashboard/roadmap
+Allow: /dashboard/leaderboard
+Allow: /dashboard/career
+Allow: /dashboard/faqs
 
-# Crawl delay (optional)
+# Crawl delay for better server performance
 Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://coduxa.vercel.app/sitemap.xml

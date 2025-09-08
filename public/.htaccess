@@ -1,0 +1,15 @@
+# Ensure proper Content-Type for XML files
+<Files "sitemap.xml">
+    Header set Content-Type "application/xml; charset=utf-8"
+    Header set Cache-Control "public, max-age=3600"
+</Files>
+
+<Files "sitemap-index.xml">
+    Header set Content-Type "application/xml; charset=utf-8"
+    Header set Cache-Control "public, max-age=3600"
+</Files>
+
+# Ensure proper Content-Type for robots.txt
+<Files "robots.txt">
+    Header set Content-Type "text/plain; charset=utf-8"
+</Files>

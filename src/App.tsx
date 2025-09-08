@@ -60,6 +60,7 @@ export default function App() {
       fetchUser();
     });
 
+
     return () => {
       listener.subscription.unsubscribe();
     };

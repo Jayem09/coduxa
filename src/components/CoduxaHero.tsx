@@ -13,7 +13,7 @@ export function CodeCredHero() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left Content */}
-          <div className="space-y-6 sm:space-y-8">
+          <div className="space-y-6 sm:space-y-8 text-center lg:text-left">
             <div className="space-y-4">
               <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-3 sm:px-4 py-2 rounded-full border border-primary/20">
                 <Code className="h-3 w-3 sm:h-4 sm:w-4" />
@@ -32,7 +32,7 @@ export function CodeCredHero() {
             </div>
             
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
               <Button asChild size="lg" className="group w-full sm:w-auto">
                 <Link to="/signup">
                   Start Certification
@@ -42,7 +42,7 @@ export function CodeCredHero() {
             </div>
             
             {/* Stats */}
-            <div className="flex items-center justify-between sm:justify-start gap-4 sm:gap-8 pt-6 sm:pt-8">
+            <div className="flex items-center justify-center lg:justify-start gap-4 sm:gap-8 pt-6 sm:pt-8">
               <div className="text-center">
                 <div className="text-lg sm:text-2xl font-bold">150+</div>
                 <div className="text-xs sm:text-sm text-muted-foreground">Projects</div>
@@ -80,17 +80,6 @@ export function CodeCredHero() {
                 </div>
               </div>
               
-              <div className="absolute -bottom-3 -right-3 sm:-bottom-6 sm:-right-6 bg-card border border-border rounded-xl p-3 sm:p-4 shadow-lg backdrop-blur-sm">
-                <div className="flex items-center gap-2 sm:gap-3">
-                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-green-500/10 rounded-lg flex items-center justify-center">
-                    <Users className="h-4 w-4 sm:h-5 sm:w-5 text-green-500" />
-                  </div>
-                  <div>
-                    <div className="text-sm sm:text-base font-medium">Team Lead</div>
-                    <div className="text-xs text-muted-foreground">5+ Years</div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
