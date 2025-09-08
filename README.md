@@ -245,7 +245,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - **Live Demo**: [https://coduxa.vercel.app](https://coduxa.vercel.app)
 - **Issues**: [GitHub Issues](https://github.com/Jayem09/coduxa/issues)
-- **Email**: [Your contact email]
+- **Email**: johndinglasan12@gmail.com
 
 ---
 
@@ -253,6 +253,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **⭐ Star this repository if you found it helpful!**
 
-Made with ❤️ by [Your Name]
+Made with ❤️ by Johnmark Dinglasan
 
 </div>
