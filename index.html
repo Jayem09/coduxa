@@ -41,6 +41,19 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="Coduxa" />
   
+  <!-- Additional SEO Meta Tags -->
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="geo.region" content="US" />
+  <meta name="geo.placename" content="United States" />
+  <meta name="distribution" content="global" />
+  <meta name="rating" content="general" />
+  <meta name="referrer" content="no-referrer-when-downgrade" />
+  
+  <!-- Preload critical resources -->
+  <link rel="preload" href="/src/main.tsx" as="script" />
+  <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+  <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+  
   <!-- Canonical URL -->
   <link rel="canonical" href="https://coduxa.vercel.app/" />
   
@@ -59,7 +72,8 @@
     "name": "Coduxa",
     "description": "Online programming certification platform for developers",
     "url": "https://coduxa.vercel.app",
-    "logo": "https://coduxa.vercel.app/logo.png",
+    "logo": "https://coduxa.vercel.app/og-image.jpg",
+    "image": "https://coduxa.vercel.app/og-image.jpg",
     "sameAs": [
       "https://twitter.com/coduxa",
       "https://linkedin.com/company/coduxa",
@@ -75,7 +89,13 @@
       "name": "Programming Certification Courses",
       "description": "Comprehensive programming certification exams and courses",
       "category": "Education"
-    }
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "US"
+    },
+    "foundingDate": "2024",
+    "numberOfEmployees": "1-10"
   }
   </script>
 </head>
