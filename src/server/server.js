@@ -6,17 +6,20 @@ import paymentRoutes from "./routes/payment.js";
 import adminRoutes from "./routes/admin.js";
 import { createClient } from "@supabase/supabase-js";
 import rateLimit, { ipKeyGenerator } from "express-rate-limit";
+import { Resend } from "resend";
 
 const app = express();
 
 // Trust proxy for Vercel deployment
 app.set('trust proxy', 1);
 
-// Initialize Supabase client for server routes
 const supabase = createClient(
   process.env.SUPABASE_URL,
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
+
+// Initialize Resend for email service
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Middleware
 app.use(
@@ -57,6 +60,65 @@ const webhookLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
   keyGenerator: ipKeyGenerator
+});
+
+// Email confirmation endpoint
+app.post("/api/send-confirmation", async (req, res) => {
+  const { email } = req.body;
+
+  if (!email) {
+    return res.status(400).json({ error: "Email is required" });
+  }
+
+  try {
+    const result = await resend.emails.send({
+      from: "noreply@coduxa.com", // Use your verified domain
+      to: email,
+      subject: "Welcome to Coduxa - Confirm Your Email",
+      html: `
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <meta charset="utf-8" />
+            <title>Welcome to Coduxa</title>
+          </head>
+          <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+            <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+              <div style="text-align: center; margin-bottom: 30px;">
+                <h1 style="color: #3b82f6; margin: 0;">Welcome to Coduxa!</h1>
+                <p style="color: #666; margin: 5px 0;">Programming Certification Platform</p>
+              </div>
+              
+              <h2 style="color: #333;">Confirm Your Email</h2>
+              <p>Hello,</p>
+              <p>Thank you for signing up for Coduxa! Please confirm your email address by clicking the button below:</p>
+              
+              <div style="text-align: center; margin: 30px 0;">
+                <a href="${process.env.FRONTEND_URL || 'https://coduxa.vercel.app'}/confirm?email=${encodeURIComponent(email)}" 
+                   style="background-color: #3b82f6; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block;">
+                  Confirm Email
+                </a>
+              </div>
+              
+              <p>Once confirmed, you'll be able to access all Coduxa features and start your programming certification journey!</p>
+              
+              <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;" />
+              <p style="color: #666; font-size: 14px;">
+                Best regards,<br />
+                The Coduxa Team<br />
+                <a href="https://coduxa.vercel.app" style="color: #3b82f6;">coduxa.vercel.app</a>
+              </p>
+            </div>
+          </body>
+        </html>
+      `,
+    });
+
+    res.json({ success: true, result });
+  } catch (error) {
+    console.error("Error sending email:", error);
+    res.status(500).json({ error: "Failed to send email" });
+  }
 });
 
 // Mount payment routes
