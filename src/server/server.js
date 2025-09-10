@@ -71,8 +71,8 @@ app.post("/api/send-confirmation", async (req, res) => {
   }
 
   try {
-    const result = await resend.emails.send({
-      from: "noreply@coduxa.com", // Use your verified domain
+      const result = await resend.emails.send({
+        from: "onboarding@resend.dev", // Use Resend's sandbox domain for testing
       to: email,
       subject: "Welcome to Coduxa - Confirm Your Email",
       html: `
