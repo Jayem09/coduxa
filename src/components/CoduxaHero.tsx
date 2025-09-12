@@ -27,7 +27,9 @@ export function CodeCredHero() {
               </h1>
               
               <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-lg leading-relaxed">
-                Take comprehensive programming certification exams, earn certificates, and showcase your expertise to employers worldwide.
+                Take comprehensive programming certification exams, earn certificates, and showcase your expertise to employers worldwide. 
+                <Link to="/leaderboard" className="text-primary hover:underline font-medium">View our leaderboard</Link> to see top developers and 
+                <Link to="/career" className="text-primary hover:underline font-medium"> explore career opportunities</Link>.
               </p>
             </div>
             

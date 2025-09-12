@@ -20,7 +20,12 @@ import {
 } from "./ui/dropdown-menu";
 import { supabase } from "./lib/supabaseClient";
 
-const navigation: { name: string; href: string }[] = [];
+const navigation: { name: string; href: string }[] = [
+    { name: "About", href: "/about" },
+    { name: "Leaderboard", href: "/leaderboard" },
+    { name: "Career", href: "/career" },
+    { name: "Services", href: "#services" }
+];
 
 const servicesDropdownItems = [
     { name: "Web Development", href: "#web", icon: Code },

@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 interface SEOProps {
@@ -31,23 +30,6 @@ export default function SEO({
 }: SEOProps) {
   const fullTitle = title.includes('Coduxa') ? title : `${title} | Coduxa`;
   const fullUrl = url.startsWith('http') ? url : `https://coduxa.vercel.app${url}`;
-
-  useEffect(() => {
-    // Update document title
-    document.title = fullTitle;
-    
-    // Update meta description
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute('content', description);
-    }
-    
-    // Update meta keywords
-    const metaKeywords = document.querySelector('meta[name="keywords"]');
-    if (metaKeywords) {
-      metaKeywords.setAttribute('content', keywords);
-    }
-  }, [fullTitle, description, keywords]);
 
   return (
     <Helmet>

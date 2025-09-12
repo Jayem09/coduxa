@@ -28,6 +28,7 @@ const Career = lazy(() => import("./components/Career"));
 const Feedback = lazy(() => import("./components/Feedback"));
 const TermsOfService = lazy(() => import("./components/pages/TermsOfService"));
 const PrivacyPolicy = lazy(() => import("./components/pages/PrivacyPolicy"));
+const AboutPage = lazy(() => import("./components/pages/AboutPage"));
 
 import { SidebarProvider, SidebarTrigger } from "./backend/components/ui/sidebar";
 import { CreditsProvider } from "./services/CreditsContext";
@@ -122,6 +123,24 @@ export default function App() {
             <TermsOfService />
           </Suspense>
         } />
+        
+        {/* Public leaderboard route */}
+        <Route path="/leaderboard" element={
+          <Suspense fallback={<LoadingSpinner />}>
+            <SEO 
+              title="Leaderboard - Top Developers & Achievements"
+              description="Compete with developers worldwide and climb the ranks. View top performers, achievements, and your position in the global coding community."
+              url="/leaderboard"
+            />
+            <div className="min-h-screen bg-background flex flex-col">
+              <CodeCredHeader />
+              <main className="flex-1">
+                <Leaderboard />
+              </main>
+              <CodeCredFooter />
+            </div>
+          </Suspense>
+        } />
         <Route path="/privacy" element={
           <Suspense fallback={<LoadingSpinner />}>
             <SEO 
@@ -130,6 +149,18 @@ export default function App() {
               url="/privacy"
             />
             <PrivacyPolicy />
+          </Suspense>
+        } />
+        
+        {/* About page */}
+        <Route path="/about" element={
+          <Suspense fallback={<LoadingSpinner />}>
+            <SEO 
+              title="About Coduxa - Programming Certification Platform"
+              description="Learn about Coduxa, the comprehensive programming certification platform helping developers validate their skills and advance their careers."
+              url="/about"
+            />
+            <AboutPage />
           </Suspense>
         } />
 
