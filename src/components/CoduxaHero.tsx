@@ -1,7 +1,6 @@
 import { Button } from "./ui/button";
-import { ArrowRight, Code, Zap, Users } from "lucide-react";
+import { ArrowRight, Code } from "lucide-react";
 import { Link } from "react-router-dom";
-import { ImageWithFallback } from './figma/ImageWithFallback';
 
 export function CodeCredHero() {
   return (
@@ -60,16 +59,19 @@ export function CodeCredHero() {
             </div>
           </div>
           
-          {/* Right Content - Hero Image */}
+          {/* Right Content - Image */}
           <div className="relative order-first lg:order-last">
             <div className="relative">
-              <ImageWithFallback
-                src="https://images.unsplash.com/photo-1753715613434-9c7cb58876b9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBjb2RpbmclMjBkZXZlbG9wZXIlMjB3b3Jrc3BhY2V8ZW58MXx8fHwxNzU2NjE0NjY5fDA&ixlib=rb-4.1.0&q=80&w=1080"
-                alt="Modern coding workspace"
-                className="rounded-2xl shadow-2xl w-full h-[300px] sm:h-[400px] lg:h-[500px] object-cover"
-              />
+              {/* Hero Image */}
+              <div className="w-full h-[300px] sm:h-[400px] lg:h-[500px] rounded-2xl overflow-hidden">
+                <img 
+                  src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                  alt="Programming and coding illustration"
+                  className="w-full h-full object-cover"
+                />
+              </div>
               
-              {/* Floating Cards */}
+              {/* Floating Card */}
               <div className="absolute -top-3 -left-3 sm:-top-6 sm:-left-6 bg-card border border-border rounded-xl p-3 sm:p-4 shadow-lg backdrop-blur-sm">
                 <div className="flex items-center gap-2 sm:gap-3">
                   <div className="w-8 h-8 sm:w-10 sm:h-10 bg-primary/10 rounded-lg flex items-center justify-center">
